@@ -1,0 +1,16 @@
+.home {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: no-repeat center/cover
+    url('https://images.unsplash.com/photo-1604481986493-5a0dcd0aa384?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80');
+}
+
+.home .btn-style {
+  width: max-content;
+}

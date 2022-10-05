@@ -1,25 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import { GlobalProvider } from './context/GlobalContext';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Header from './components/header/Header';
+import HomePage from './components/homePage/HomePage';
+import ShopPage from './components/shopPage/ShopPage';
+import ProductPage from './components/productPage/ProductPage';
+import CartPage from './components/cartPage/CartPage';
+import CheckOutPage from './components/checkOutPage/CheckOutPage';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GlobalProvider>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/shop" element={<ShopPage />} />
+          <Route path="/shop/:productId" element={<ProductPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckOutPage />} />
+        </Routes>
+      </BrowserRouter>
+    </GlobalProvider>
   );
 }
 

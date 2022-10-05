@@ -1,0 +1,16 @@
+.recommendations {
+  max-width: 900px;
+  margin: auto;
+}
+
+.recommendations .title {
+  text-align: center;
+  margin: 12px;
+}
+
+.recommendations .products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
+  gap: 20px;
+  padding: 20px;
+}

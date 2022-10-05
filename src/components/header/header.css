@@ -1,0 +1,28 @@
+.header {
+  position: sticky;
+  top: 0;
+  padding: 10px 20px 12px 20px;
+  background-color: white;
+  z-index: 20;
+}
+
+.header .title {
+  text-align: center;
+}
+
+.header .store-name {
+  font-size: 1.6rem;
+  font-weight: 600;
+  width: 100%;
+}
+
+.header .location {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+@media (max-width: 420px) {
+  .header {
+    padding-bottom: 36px;
+  }
+}

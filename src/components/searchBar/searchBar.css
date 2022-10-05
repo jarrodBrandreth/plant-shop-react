@@ -1,0 +1,19 @@
+.search-bar {
+  border: 1px solid rgba(0, 0, 0);
+  padding: 4px 12px;
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+}
+
+.search-bar label {
+  display: none;
+}
+
+.search-bar input {
+  flex-grow: 1;
+  padding: 2px;
+ margin:0px 4px;
+ border: none;
+ font-size: 1rem;
+}

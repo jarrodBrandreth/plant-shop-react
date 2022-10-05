@@ -1,0 +1,48 @@
+
+/* move to a hover media query */
+.cart-link:hover .cart-preview {
+  visibility: visible;
+}
+
+.cart-icon-container {
+  position: relative;
+  width: min-content;
+  z-index: 10;
+}
+
+.cart-icon-container .leaf {
+  position: absolute;
+  top: -17px;
+  left: 8px;
+  transform: rotate(94deg);
+  animation: leaf-shake 0.25s 0.35s 1;
+  z-index: -1;
+}
+
+@keyframes leaf-shake {
+  0% { transform: rotate(94deg); }
+  25% { transform: rotate(114deg); }
+  50% { transform: rotate(90deg); }
+  75% { transform: rotate(114deg); }
+  100% { transform: rotate(94deg); }
+}
+
+.cart-icon-container .cart-number {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top:3px;
+  left: -12px;
+  padding: 5px;
+  background-color: rgb(182, 1, 1);
+  border: 1px solid white;
+  color: white;
+  text-align: center;
+  font-family: monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 50%;
+}

@@ -1,0 +1,38 @@
+.shop {
+  position: relative;
+}
+
+.shop h2 {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.shop .product-sorting {
+  margin: 8px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.shop .product-sorting .accordion {
+  margin-left: 40px;
+}
+
+.shop .products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 26px;
+  padding: 20px;
+}
+
+@media (max-width: 530px) {
+  .shop .product-sorting .search-bar {
+    width: 100%;
+  }
+
+  .shop .product-sorting .accordion {
+    margin: 12px 0px 0px 0px;
+  }
+}

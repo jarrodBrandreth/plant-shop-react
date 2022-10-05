@@ -1,0 +1,56 @@
+.accordion button {
+  text-align: left;
+  padding: 8px;
+}
+
+.accordion {
+  width: fit-content;
+}
+
+.title-wrapper button {
+  border: none;
+  background-color: transparent;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.title-wrapper .title {
+  margin-right: 6px;
+}
+
+.title-wrapper.open button {
+  color: crimson;
+}
+
+.options-container {
+  position: relative;
+}
+
+.options {
+  width: max-content;
+  background-color: white;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 5;
+  border-radius: 4px;
+  background-color: whitesmoke;
+}
+
+.options button {
+  background-color: transparent;
+  border: 1px solid black;
+  border: none;
+  margin: 4px;
+}
+
+.options button:hover {
+  background-color: antiquewhite;
+}
+
+.options.open {
+  visibility: visible;
+}
