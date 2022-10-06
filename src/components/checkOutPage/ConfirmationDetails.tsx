@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, Fragment, SetStateAction } from 'react';
 import { useGlobalContext } from '../../context/GlobalContext';
 import { v4 as uuidv4 } from 'uuid';
 import { useCheckOutContext } from '../../context/CheckOutContext';
@@ -10,7 +10,7 @@ interface ConfirmationDetailsProps {
 
 function ConfirmationDetails({ setBillingIsValid, setShippingIsValid }: ConfirmationDetailsProps) {
   const { cart } = useGlobalContext();
-  const { orderForm } = useCheckOutContext();
+  const { orderForm, setOrder } = useCheckOutContext();
   const cardDisplay = (cardNumber: string): string => {
     return (
       '...' +
@@ -21,8 +21,26 @@ function ConfirmationDetails({ setBillingIsValid, setShippingIsValid }: Confirma
     );
   };
 
+  const orderProductsArray = cart.items.map((currentProduct) => {
+    return {
+      id: currentProduct.product.id,
+      name: currentProduct.product.name,
+      quantity: currentProduct.quantity,
+    };
+  });
+
   const placeOrder = () => {
-    console.log('place order')
+    console.log('place order');
+    setOrder({
+      order_number: uuidv4(),
+      ...orderForm,
+      products: orderProductsArray,
+    });
+    console.log({
+      order_number: uuidv4(),
+      ...orderForm,
+      products: orderProductsArray,
+    });
   };
 
   return (
@@ -35,48 +53,31 @@ function ConfirmationDetails({ setBillingIsValid, setShippingIsValid }: Confirma
           edit
         </button>
       </div>
-      <span className="key">First Name:</span>
-      <span className="value">{orderForm.shipping.first_name}</span>
-      <span className="key">Last Name:</span>
-      <span className="value">{orderForm.shipping.last_name}</span>
-      <span className="key">Address:</span>
-      <span className="value">{orderForm.shipping.address}</span>
-      <span className="key">City:</span>
-      <span className="value">{orderForm.shipping.city}</span>
-      <span className="key">State:</span>
-      <span className="value">{orderForm.shipping.state}</span>
-      <span className="key">Postal Code:</span>
-      <span className="value">{orderForm.shipping.postal_code}</span>
-      <span className="key">Email:</span>
-      <span className="value">{orderForm.shipping.email}</span>
-      <span className="key">Phone Number:</span>
-      <span className="value">{orderForm.shipping.phone_number}</span>
+      {Object.entries(orderForm.shipping).map((entry, index) => {
+        return (
+          <Fragment key={index}>
+            <span className="key">{entry[0].replaceAll('_', ' ')}</span>
+            <span className="value">{entry[1]}</span>
+          </Fragment>
+        );
+      })}
       <div className="details-heading">
         <h4 className="heading">Billing Details</h4>
         <button className="edit billing" onClick={() => setBillingIsValid(false)}>
           edit
         </button>
       </div>
-      <span className="key">Name:</span>
-      <span className="value">{orderForm.billing.name_on_card}</span>
-      <span className="key">Address:</span>
-      <span className="value">{orderForm.billing.address}</span>
-      <span className="key">City:</span>
-      <span className="value">{orderForm.billing.city}</span>
-      <span className="key">State:</span>
-      <span className="value">{orderForm.billing.state}</span>
-      <span className="key">Postal Code:</span>
-      <span className="value">{orderForm.billing.postal_code}</span>
-      <span className="key">Email:</span>
-      <span className="value">{orderForm.billing.email}</span>
-      <span className="key">Phone Number:</span>
-      <span className="value">{orderForm.billing.phone_number}</span>
-      <span className="key">Card Number:</span>
-      <span className="value">{cardDisplay(orderForm.billing.card_number)}</span>
-      <span className="key">Card Expiration:</span>
-      <span className="value">{orderForm.billing.card_expiration}</span>
-      <span className="key">CVV:</span>
-      <span className="value">{orderForm.billing.cvv}</span>
+      {Object.entries(orderForm.billing).map((entry, index) => {
+        if (entry[0] === 'card_number') {
+          entry[1] = cardDisplay(entry[1]);
+        }
+        return (
+          <Fragment key={index}>
+            <span className="key">{entry[0].replaceAll('_', ' ')}</span>
+            <span className="value">{entry[1]}</span>
+          </Fragment>
+        );
+      })}
       <div className="button-container confirm">
         <button type="submit" className="proceed" onClick={() => placeOrder()}>
           Confirm Order
