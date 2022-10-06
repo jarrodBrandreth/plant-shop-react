@@ -9,7 +9,6 @@ function CheckOutForm() {
   const [shippingIsValid, setShippingIsValid] = useState(false);
   const [billingIsValid, setBillingIsValid] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
-  const [billingShippingSame, setBillingShippingSame] = useState(true);
 
   return (
     <div className="forms-container">
@@ -19,8 +18,6 @@ function CheckOutForm() {
           <Billing
             setBillingIsValid={setBillingIsValid}
             setShippingIsValid={setShippingIsValid}
-            billingShippingSame={billingShippingSame}
-            setBillingShippingSame={setBillingShippingSame}
           />
         )}
         {shippingIsValid && billingIsValid && (

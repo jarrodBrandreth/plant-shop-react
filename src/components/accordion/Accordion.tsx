@@ -14,9 +14,7 @@ interface AccordionProps {
 
 function Accordion({ title, handlerFunction, options }: AccordionProps) {
   const [toggle, setToggle] = useState(false);
-  // const changeToggle = () => {
-  //   setToggle(!toggle);
-  // };
+  
   return (
     <div className="accordion">
     <div className={`title-wrapper ${toggle ? 'open' : ''}`}>

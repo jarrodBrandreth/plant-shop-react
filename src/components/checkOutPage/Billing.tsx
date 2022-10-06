@@ -1,25 +1,35 @@
-import React, { useEffect, ChangeEvent, SyntheticEvent, SetStateAction, Dispatch } from 'react';
+import React, {
+  useEffect,
+  useState,
+  ChangeEvent,
+  SyntheticEvent,
+  SetStateAction,
+  Dispatch,
+} from 'react';
 import { useCheckOutContext } from '../../context/CheckOutContext';
 
 interface BillingProps {
   setBillingIsValid: Dispatch<SetStateAction<boolean>>;
   setShippingIsValid: Dispatch<SetStateAction<boolean>>;
-  billingShippingSame: boolean;
-  setBillingShippingSame: Dispatch<SetStateAction<boolean>>;
 }
 
-function Billing({setBillingIsValid,setShippingIsValid,billingShippingSame,setBillingShippingSame}: BillingProps) {
-  const { billingForm, setBillingForm, shippingForm } = useCheckOutContext();
+function Billing({ setBillingIsValid, setShippingIsValid }: BillingProps) {
+  const { orderForm, setOrderForm } = useCheckOutContext();
+  const [billingShippingSame, setBillingShippingSame] = useState(true);
+
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     setBillingIsValid(true);
-    console.log('submitted');
   };
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setBillingForm((billingForm) => ({
-      ...billingForm,
-      [name]: value,
+    setOrderForm((orderForm) => ({
+      ...orderForm,
+      billing: {
+        ...orderForm.billing,
+        [name]: value,
+      },
     }));
   };
 
@@ -30,15 +40,32 @@ function Billing({setBillingIsValid,setShippingIsValid,billingShippingSame,setBi
 
   useEffect(() => {
     if (billingShippingSame) {
-      setBillingForm((billingForm) => ({
-        ...billingForm,
-        nameOnCard: `${shippingForm.firstName} ${shippingForm.lastName}`,
-        address: shippingForm.address,
-        city: shippingForm.city,
-        state: shippingForm.state,
-        postalCode: shippingForm.postalCode,
-        email: shippingForm.email,
-        phoneNumber: shippingForm.phoneNumber,
+      setOrderForm((orderForm) => ({
+        ...orderForm,
+        billing: {
+          ...orderForm.billing,
+          name_on_card: `${orderForm.shipping.first_name} ${orderForm.shipping.last_name}`,
+          address: orderForm.shipping.address,
+          city: orderForm.shipping.city,
+          state: orderForm.shipping.state,
+          postal_code: orderForm.shipping.postal_code,
+          email: orderForm.shipping.email,
+          phone_number: orderForm.shipping.phone_number,
+        },
+      }));
+    } else {
+      setOrderForm((orderForm) => ({
+        ...orderForm,
+        billing: {
+          ...orderForm.billing,
+          name_on_card: '',
+          address: '',
+          city: '',
+          state: '',
+          postal_code: '',
+          email: '',
+          phone_number: '',
+        },
       }));
     }
   }, [billingShippingSame]);
@@ -82,10 +109,10 @@ function Billing({setBillingIsValid,setShippingIsValid,billingShippingSame,setBi
         <label htmlFor="name-on-card">Name:</label>
         <input
           type="text"
-          name="nameOnCard"
+          name="name_on_card"
           id="name-on-card"
           placeholder="name as appears on card"
-          value={billingForm.nameOnCard}
+          value={orderForm.billing.name_on_card}
           // pattern=""
           required
           onChange={handleChange}
@@ -96,7 +123,7 @@ function Billing({setBillingIsValid,setShippingIsValid,billingShippingSame,setBi
           name="address"
           id="card-address"
           placeholder="address"
-          value={billingForm.address}
+          value={orderForm.billing.address}
           // pattern='^[a-zA-Z]+$'
           required
           onChange={handleChange}
@@ -108,7 +135,7 @@ function Billing({setBillingIsValid,setShippingIsValid,billingShippingSame,setBi
           id="card-city"
           required
           placeholder="city"
-          value={billingForm.city}
+          value={orderForm.billing.city}
           // pattern='^[a-zA-Z]+$'
           onChange={handleChange}
         />
@@ -119,17 +146,17 @@ function Billing({setBillingIsValid,setShippingIsValid,billingShippingSame,setBi
           id="card-state"
           required
           placeholder="state"
-          value={billingForm.state}
+          value={orderForm.billing.state}
           // pattern='^[a-zA-Z]+$'
           onChange={handleChange}
         />
         <label htmlFor="card-postal-code">Postal Code:</label>
         <input
           type="text"
-          name="postalCode"
+          name="postal_code"
           id="card-postal-code"
           placeholder="postal code"
-          value={billingForm.postalCode}
+          value={orderForm.billing.postal_code}
           // pattern='^[0-9]+$'
           required
           onChange={handleChange}
@@ -140,7 +167,7 @@ function Billing({setBillingIsValid,setShippingIsValid,billingShippingSame,setBi
           name="email"
           id="card-email"
           placeholder="email"
-          value={billingForm.email}
+          value={orderForm.billing.email}
           // pattern='^[a-zA-Z]+$'
           required
           onChange={handleChange}
@@ -148,10 +175,10 @@ function Billing({setBillingIsValid,setShippingIsValid,billingShippingSame,setBi
         <label htmlFor="card-phone-number">Phone Number:</label>
         <input
           type="text"
-          name="phoneNumber"
+          name="phone_number"
           id="card-phone-number"
           placeholder="phone number"
-          value={billingForm.phoneNumber}
+          value={orderForm.billing.phone_number}
           // pattern='^[0-9]+$'
           required
           onChange={handleChange}
@@ -159,10 +186,10 @@ function Billing({setBillingIsValid,setShippingIsValid,billingShippingSame,setBi
         <label htmlFor="card-number">Card Number:</label>
         <input
           type="text"
-          name="cardNumber"
+          name="card_number"
           id="card-number"
           placeholder="card number"
-          value={billingForm.cardNumber}
+          value={orderForm.billing.card_number}
           // pattern=""
           required
           onChange={handleChange}
@@ -170,10 +197,10 @@ function Billing({setBillingIsValid,setShippingIsValid,billingShippingSame,setBi
         <label htmlFor="card-expiration">Card Expiration:</label>
         <input
           type="date"
-          name="cardExpiration"
+          name="card_expiration"
           id="card-expiration"
           placeholder="card expiration"
-          value={billingForm.cardExpiration}
+          value={orderForm.billing.card_expiration}
           // pattern=""
           required
           onChange={handleChange}
@@ -181,13 +208,13 @@ function Billing({setBillingIsValid,setShippingIsValid,billingShippingSame,setBi
         <label htmlFor="card-cvv">CVV:</label>
         <input
           type="text"
-          name="cardCVV"
+          name="cvv"
           id="card-cvv"
           minLength={3}
           maxLength={4}
           required
           placeholder="cvv"
-          value={billingForm.cardCVV}
+          value={orderForm.billing.cvv}
           // pattern=""
           onChange={handleChange}
         />

@@ -6,17 +6,20 @@ interface ShippingProps {
 }
 
 function Shipping({ setShippingIsValid }: ShippingProps) {
-  const { shippingForm, setShippingForm } = useCheckOutContext();
+  const { orderForm, setOrderForm } = useCheckOutContext();
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     setShippingIsValid(true);
-    console.log('submitted');
   };
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setShippingForm((shippingForm) => ({
-      ...shippingForm,
-      [name]: value,
+    setOrderForm((orderForm) => ({
+      ...orderForm,
+      shipping: {
+        ...orderForm.shipping,
+        [name]: value,
+      },
     }));
   };
 
@@ -27,10 +30,10 @@ function Shipping({ setShippingIsValid }: ShippingProps) {
         <label htmlFor="first-name">First Name:</label>
         <input
           type="text"
-          name="firstName"
+          name="first_name"
           id="first-name"
           placeholder="first name"
-          value={shippingForm.firstName}
+          value={orderForm.shipping.first_name}
           // pattern='^[a-zA-Z]+$'
           required
           onChange={handleChange}
@@ -38,10 +41,10 @@ function Shipping({ setShippingIsValid }: ShippingProps) {
         <label htmlFor="last-name">Last Name:</label>
         <input
           type="text"
-          name="lastName"
+          name="last_name"
           id="last-name"
           placeholder="last name"
-          value={shippingForm.lastName}
+          value={orderForm.shipping.last_name}
           // pattern='^[a-zA-Z]+$'
           required
           onChange={handleChange}
@@ -52,7 +55,7 @@ function Shipping({ setShippingIsValid }: ShippingProps) {
           name="address"
           id="address"
           placeholder="address"
-          value={shippingForm.address}
+          value={orderForm.shipping.address}
           // pattern='^[a-zA-Z]+$'
           required
           onChange={handleChange}
@@ -64,7 +67,7 @@ function Shipping({ setShippingIsValid }: ShippingProps) {
           id="city"
           required
           placeholder="city"
-          value={shippingForm.city}
+          value={orderForm.shipping.city}
           // pattern='^[a-zA-Z]+$'
           onChange={handleChange}
         />
@@ -75,17 +78,17 @@ function Shipping({ setShippingIsValid }: ShippingProps) {
           id="state"
           required
           placeholder="state"
-          value={shippingForm.state}
+          value={orderForm.shipping.state}
           // pattern='^[a-zA-Z]+$'
           onChange={handleChange}
         />
         <label htmlFor="postal-code">Postal Code:</label>
         <input
           type="text"
-          name="postalCode"
+          name="postal_code"
           id="postal-code"
           placeholder="postal code"
-          value={shippingForm.postalCode}
+          value={orderForm.shipping.postal_code}
           // pattern='^[0-9]+$'
           required
           onChange={handleChange}
@@ -96,7 +99,7 @@ function Shipping({ setShippingIsValid }: ShippingProps) {
           name="email"
           id="email"
           placeholder="email"
-          value={shippingForm.email}
+          value={orderForm.shipping.email}
           // pattern='^[a-zA-Z]+$'
           required
           onChange={handleChange}
@@ -104,10 +107,10 @@ function Shipping({ setShippingIsValid }: ShippingProps) {
         <label htmlFor="phone-number">Phone Number:</label>
         <input
           type="text"
-          name="phoneNumber"
+          name="phone_number"
           id="phone-number"
           placeholder="phone number"
-          value={shippingForm.phoneNumber}
+          value={orderForm.shipping.phone_number}
           // pattern='^[0-9]+$'
           required
           onChange={handleChange}
