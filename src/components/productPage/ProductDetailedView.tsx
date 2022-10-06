@@ -1,9 +1,13 @@
 import React from 'react';
 import { useGlobalContext } from '../../context/GlobalContext';
 import LikeButton from '../likeButton/LikeButton';
-import WaterRating from '../waterRating/WaterRating';
-import MaintenanceRating from '../maintenanceRating/MaintenanceRating';
-import SunRating from '../sunRating/SunRating';
+import Rating from '../rating/Rating';
+import { ReactComponent as SunIcon } from '../../assets/icons/sunny-outline.svg';
+import { ReactComponent as SunIconFill } from '../../assets/icons/sunny-sharp.svg';
+import { ReactComponent as DropletIcon } from '../../assets/icons/water-outline.svg';
+import { ReactComponent as DropletIconFill } from '../../assets/icons/water-sharp.svg';
+import { ReactComponent as MaintenanceIcon } from '../../assets/icons/cut-outline.svg';
+import { ReactComponent as MaintenanceIconFill } from '../../assets/icons/cut-sharp.svg';
 import { ProductAsProps } from '../../types/Types';
 import { formatCurrency } from '../../currencyFunction';
 import './productDetailedView.css';
@@ -34,15 +38,33 @@ function ProductDetailedView({ product }: ProductAsProps) {
 
           <div className="field-container">
             <span className="title">Sun Needs:</span>
-            <SunRating number={product.sun} width="24px" />
+            <Rating
+            Icon={SunIcon}
+            IconFilled={SunIconFill}
+            number={product.sun}
+            width="24px"
+            fill="#FABD02"
+          />
           </div>
           <div className="field-container">
             <span className="title">Water Needs:</span>
-            <WaterRating number={product.water} width="24px" />
+            <Rating
+            Icon={DropletIcon}
+            IconFilled={DropletIconFill}
+            number={product.water}
+            width="24px"
+            fill="#1F456E"
+          />
           </div>
           <div className="field-container">
             <span className="title">Maintenance:</span>
-            <MaintenanceRating number={product.maintenance} width="24px" />
+            <Rating
+            Icon={MaintenanceIcon}
+            IconFilled={MaintenanceIconFill}
+            number={product.maintenance}
+            width="24px"
+            fill="#3D251E"
+          />
           </div>
 
           <details className="drop-down">

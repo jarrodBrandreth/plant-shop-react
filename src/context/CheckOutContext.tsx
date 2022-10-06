@@ -3,10 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { OrderFormProps } from '../types/Types';
 
 interface CheckOutContextProps {
-  // shippingForm: ShippingFormProps;
-  // setShippingForm: Dispatch<SetStateAction<ShippingFormProps>>;
-  // billingForm: BillingFormProps;
-  // setBillingForm: Dispatch<SetStateAction<BillingFormProps>>;
   orderForm:OrderFormProps;
   setOrderForm:Dispatch<SetStateAction<OrderFormProps>>;
   order: any;
@@ -16,28 +12,6 @@ interface CheckOutContextProps {
 const CheckOutContext = createContext<CheckOutContextProps | undefined>(undefined);
 
 export function CheckOutProvider({ children }: any) {
-  // const [shippingForm, setShippingForm] = useState({
-  //   firstName: '',
-  //   lastName: '',
-  //   address: '',
-  //   city: '',
-  //   state: '',
-  //   postalCode: '',
-  //   email: '',
-  //   phoneNumber: '',
-  // });
-  // const [billingForm, setBillingForm] = useState({
-  //   nameOnCard: '',
-  //   address: '',
-  //   city: '',
-  //   state: '',
-  //   postalCode: '',
-  //   email: '',
-  //   phoneNumber: '',
-  //   cardNumber: '',
-  //   cardExpiration: '',
-  //   cardCVV: '',
-  // });
   const [orderForm, setOrderForm] = useState({
     shipping: {
       first_name: '',
@@ -67,10 +41,6 @@ export function CheckOutProvider({ children }: any) {
   const value: CheckOutContextProps = {
     orderForm,
     setOrderForm,
-    // shippingForm,
-    // setShippingForm,
-    // billingForm,
-    // setBillingForm,
     order,
     setOrder,
   };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { ReactComponent as ChevronUp } from '../../assets/icons/chevron-up-outline.svg';
 import { ReactComponent as ChevronDown } from '../../assets/icons/chevron-down-outline.svg';
 import './accordion.css';
@@ -14,29 +14,28 @@ interface AccordionProps {
 
 function Accordion({ title, handlerFunction, options }: AccordionProps) {
   const [toggle, setToggle] = useState(false);
-  
+
   return (
     <div className="accordion">
-    <div className={`title-wrapper ${toggle ? 'open' : ''}`}>
-        {/* <button onClick={changeToggle}> */}
-        <button onClick={()=> setToggle(toggle=>!toggle)}>
-          <span className='title'>{title}</span>
-          {toggle ? <ChevronUp width="18px" fill='crimson' /> :  <ChevronDown width="18px" />}
+      <div className={`title-wrapper ${toggle ? 'open' : ''}`}>
+        <button onClick={() => setToggle((toggle) => !toggle)}>
+          <span className="title">{title}</span>
+          {toggle ? <ChevronUp width="18px" fill="crimson" /> : <ChevronDown width="18px" />}
         </button>
-    </div>
-    <div className="options-container">
-      <div className={`options ${toggle ? 'open' : ''}`}>
-        {options.map((option,index) => {
-          return (
-            <button key={index} onClick={() => handlerFunction({ ...option.functionArgs })}>
-              {option.innerText}
-            </button>
-          );
-        })}
+      </div>
+      <div className="options-container">
+        <div className={`options ${toggle ? 'open' : ''}`}>
+          {options.map((option, index) => {
+            return (
+              <button key={index} onClick={() => handlerFunction({ ...option.functionArgs })}>
+                {option.innerText}
+              </button>
+            );
+          })}
+        </div>
       </div>
     </div>
-  </div>
-  )
+  );
 }
 
-export default Accordion
+export default Accordion;
