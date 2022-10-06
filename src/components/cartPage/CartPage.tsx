@@ -13,7 +13,7 @@ function CartPage() {
   const { likedItems } = useGlobalContext();
 
   // an array of cartItems without quantity to pass to recommendations
-  const cartItemsProducts = cart.items.map(item => item.product);
+  const cartItemsProducts = cart.items.map((item) => item.product);
 
   if (cart.items.length < 1)
     return (
@@ -57,7 +57,12 @@ function CartPage() {
           </div>
         </div>
       </section>
-      <Recommendations excluded={cartItemsProducts} products={likedItems} numOfSuggestions={10} title='Consider adding some items you liked to your cart' />
+      <Recommendations
+        excluded={cartItemsProducts}
+        products={likedItems}
+        numOfSuggestions={10}
+        title="Consider adding some items you liked to your cart"
+      />
     </div>
   );
 }

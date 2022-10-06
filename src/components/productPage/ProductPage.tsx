@@ -9,7 +9,7 @@ import './productPage.css';
 function ProductPage() {
   const [product, setProduct] = useState<ProductProps | null>(null);
   const { productId } = useParams();
-  const { products } = useGlobalContext().productStatus;
+  const { products } = useGlobalContext();
 
   useEffect(() => {
     if (!productId) return;

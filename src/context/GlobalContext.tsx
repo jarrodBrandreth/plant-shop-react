@@ -3,10 +3,10 @@ import { ProductProps, CartProductProps } from '../types/Types';
 
 interface GlobalContextProps {
   productStatus: {
-    products: ProductProps[];
     loading: boolean;
     error: boolean;
   };
+  products: ProductProps[];
   likedItems: ProductProps[];
   checkIfLiked: (item: ProductProps) => boolean;
   updateLikedItems: (item: ProductProps) => void;
@@ -113,10 +113,10 @@ export function GlobalProvider({ children }: any) {
 
   const value: GlobalContextProps = {
     productStatus: {
-      products: products,
       error: error,
       loading: loading,
     },
+    products: products,
     likedItems,
     checkIfLiked,
     updateLikedItems,

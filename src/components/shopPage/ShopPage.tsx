@@ -12,7 +12,7 @@ interface SortProductsArgs {
 }
 
 function ShopPage() {
-  const { products } = useGlobalContext().productStatus;
+  const { products } = useGlobalContext();
   const [currentProducts, setCurrentProducts] = useState<Array<ProductProps>>([]);
 
   const searchFunction = (val: string) => {
