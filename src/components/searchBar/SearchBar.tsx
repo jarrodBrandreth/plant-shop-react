@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import { ReactComponent as MagnifyingGlass } from '../../assets/icons/search-sharp.svg';
 import { ReactComponent as Clear } from '../../assets/icons/close-outline.svg';
 import './searchBar.css';
@@ -8,26 +8,21 @@ interface SearchBarProps {
 }
 
 function SearchBar({ searchFunction }: SearchBarProps) {
-  const searchInputRef = useRef<HTMLInputElement>(null);
-
+  const [searchValue, setSearchValue] = useState('');
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    searchFunction(event.target.value);
+    setSearchValue(event.target.value);
   };
-  const clearInput = () => {
-    if (searchInputRef.current !== null) {
-      searchInputRef.current.value = '';
-      searchFunction('');
-      searchInputRef.current.focus();
-    }
-  };
+  useEffect(() => {
+    searchFunction(searchValue);
+  }, [searchValue]);
 
   return (
     <div className="search-bar">
       <label htmlFor="search">Search</label>
       <MagnifyingGlass width="20px" fill="black" />
       <input
-        ref={searchInputRef}
         onChange={handleChange}
+        value={searchValue}
         type="text"
         id="search"
         name="search"
@@ -35,7 +30,7 @@ function SearchBar({ searchFunction }: SearchBarProps) {
       />
       <Clear
         aria-roledescription="clear search input"
-        onClick={clearInput}
+        onClick={() => setSearchValue('')}
         width="20px"
         color="black"
         cursor={'pointer'}
