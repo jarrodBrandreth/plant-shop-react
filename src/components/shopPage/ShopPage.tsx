@@ -3,7 +3,7 @@ import { useGlobalContext } from '../../context/GlobalContext';
 import { ProductProps } from '../../types/Types';
 import ProductCard from '../productCard/ProductCard';
 import SearchBar from '../searchBar/SearchBar';
-import Accordion from '../accordion/Accordion';
+import AccordionSort from '../accordionSort/AccordionSort';
 import './shopPage.css';
 
 interface SortProductsArgs {
@@ -14,82 +14,56 @@ interface SortProductsArgs {
 function ShopPage() {
   const { products } = useGlobalContext();
   const [currentProducts, setCurrentProducts] = useState<Array<ProductProps>>([]);
+  const [searchValue, setSearchValue] = useState('');
+  const [sortByValue, setSortByValue] = useState<SortProductsArgs | 'default'>('default');
 
-  const searchFunction = (val: string) => {
-    const results = [...products].filter((product) =>
-      product.name.toLowerCase().includes(val.toLowerCase()),
-    );
-    setCurrentProducts(results);
-  };
-
-  const sortProducts = ({ property, decreasing }: SortProductsArgs) => {
-    let results = currentProducts.sort((a, b) => {
-      let propA = a[property];
-      let propB = b[property];
-      if (typeof propA === 'string' && typeof propB === 'string') {
-        propA = propA.toLowerCase();
-        propB = propB.toLowerCase();
-      }
-      if (propA < propB) {
-        return -1;
-      }
-      if (propA > propB) {
-        return 1;
-      }
-      return 0;
-    });
-    if (decreasing) results = results.reverse();
-    return setCurrentProducts([...results]);
-  };
-
+  // this useEffect is not needed
   useEffect(() => {
     setCurrentProducts(products);
   }, [products]);
+
+  useEffect(() => {
+    setCurrentProducts(() => {
+      let results = [...products].filter((product) =>
+        product.name.toLowerCase().includes(searchValue.toLowerCase()),
+      );
+      if (sortByValue === 'default') {
+        return results;
+      } else {
+        results.sort((a, b) => {
+          let propA = a[sortByValue.property];
+          let propB = b[sortByValue.property];
+          if (typeof propA === 'string' && typeof propB === 'string') {
+            propA = propA.toLowerCase();
+            propB = propB.toLowerCase();
+          }
+          if (propA < propB) {
+            return -1;
+          }
+          if (propA > propB) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+      if (sortByValue.decreasing) return results.reverse();
+      return results;
+    });
+  }, [searchValue, sortByValue, products]);
 
   return (
     <main className="shop page">
       <h2>Store</h2>
       <section className="product-sorting">
-        <SearchBar searchFunction={searchFunction} />
-        <Accordion
-          title="Sort By"
-          handlerFunction={sortProducts}
+        <SearchBar searchValue={searchValue} setSearchValue={setSearchValue} />
+        <AccordionSort
+          setSortByValue={setSortByValue}
           options={[
-            {
-              innerText: 'Price high to low',
-              functionArgs: { property: 'price', decreasing: true },
-            },
-            {
-              innerText: 'Price low to high',
-              functionArgs: { property: 'price', decreasing: false },
-            },
-
-            { innerText: 'Name A - Z', functionArgs: { property: 'name', decreasing: false } },
-            { innerText: 'Name Z - A', functionArgs: { property: 'name', decreasing: true } },
-            {
-              innerText: 'Sun Needs high to low',
-              functionArgs: { property: 'sun', decreasing: true },
-            },
-            {
-              innerText: 'Sun Needs low to high',
-              functionArgs: { property: 'sun', decreasing: false },
-            },
-            {
-              innerText: 'Maintenance high to low',
-              functionArgs: { property: 'maintenance', decreasing: true },
-            },
-            {
-              innerText: 'Maintenance low to high',
-              functionArgs: { property: 'maintenance', decreasing: false },
-            },
-            {
-              innerText: 'Water usage high to low',
-              functionArgs: { property: 'water', decreasing: true },
-            },
-            {
-              innerText: 'Water usage low to high',
-              functionArgs: { property: 'water', decreasing: false },
-            },
+            { property: 'price', type: 'number' },
+            { property: 'name', type: 'text' },
+            { property: 'sun', type: 'number' },
+            { property: 'maintenance', type: 'number' },
+            { property: 'water', type: 'number' },
           ]}
         />
       </section>
