@@ -1,10 +1,43 @@
 .accordion button {
   text-align: left;
+  text-transform: capitalize;
   padding: 8px;
 }
 
 .accordion {
   width: fit-content;
+  position: relative;
+}
+
+.accordion .current-sorted {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  width: max-content;
+  padding: 4px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.accordion .current-option {
+  text-transform: capitalize;
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+.accordion .clear-sort {
+  background-color: transparent;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.title-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 .title-wrapper button {
@@ -32,12 +65,12 @@
   background-color: white;
   visibility: hidden;
   position: absolute;
-  top: 0;
+  top: 10px;
   display: flex;
   flex-direction: column;
   z-index: 5;
   border-radius: 4px;
-  background-color: whitesmoke;
+  background-color:  rgb(181 222 181);
 }
 
 .options button {

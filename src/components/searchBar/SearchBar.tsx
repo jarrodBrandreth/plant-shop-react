@@ -25,14 +25,13 @@ function SearchBar({ searchValue, setSearchValue }: SearchBarProps) {
         name="search"
         placeholder="Search Products"
       />
-      <Clear
+      <button
         className="clear-search icon"
-        aria-roledescription="clear search input"
         onClick={() => setSearchValue('')}
-        width="20px"
-        color="black"
-        cursor={'pointer'}
-      />
+        aria-label="clear search input"
+      >
+        <Clear width="20px" color="black" />
+      </button>
     </div>
   );
 }
