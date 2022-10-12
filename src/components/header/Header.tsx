@@ -6,7 +6,13 @@ import './header.css';
 function Header() {
   const onHomePage = useLocation().pathname === '/';
   return (
-    <header className="header" style={{ backgroundColor: `${onHomePage ? 'transparent' : ''}` }}>
+    <header
+      className="header"
+      style={{
+        backgroundColor: `${onHomePage ? 'transparent' : ''}`,
+        color: `${onHomePage ? 'white' : ''}`,
+      }}
+    >
       <div className="title">
         <h1 className="store-name">The Plant Shop</h1>
         <span className="location">Malmö | Sweden</span>

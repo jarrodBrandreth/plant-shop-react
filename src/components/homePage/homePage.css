@@ -3,14 +3,22 @@
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   position: absolute;
   top: 0;
   left: 0;
-  background: no-repeat center/cover
-    url('https://images.unsplash.com/photo-1604481986493-5a0dcd0aa384?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80');
+  background: no-repeat center/cover url('../../assets/images/bg-desktop.jpg')
 }
 
 .home .btn-style {
   width: max-content;
+  font-weight: 700;
+  margin-top: 26vh;
+}
+
+@media (max-width: 525px) {
+  .home {
+    background:no-repeat center/cover url('../../assets/images/bg-mobile.jpg');
+    align-items: flex-end;
+  }
 }
