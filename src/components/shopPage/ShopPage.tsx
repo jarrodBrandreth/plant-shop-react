@@ -15,19 +15,14 @@ function ShopPage() {
   const { products } = useGlobalContext();
   const [currentProducts, setCurrentProducts] = useState<Array<ProductProps>>([]);
   const [searchValue, setSearchValue] = useState('');
-  const [sortByValue, setSortByValue] = useState<SortProductsArgs | 'default'>('default');
-
-  // this useEffect is not needed
-  useEffect(() => {
-    setCurrentProducts(products);
-  }, [products]);
+  const [sortByValue, setSortByValue] = useState<SortProductsArgs | null>(null);
 
   useEffect(() => {
     setCurrentProducts(() => {
       let results = [...products].filter((product) =>
         product.name.toLowerCase().includes(searchValue.toLowerCase()),
       );
-      if (sortByValue === 'default') {
+      if (!sortByValue) {
         return results;
       } else {
         results.sort((a, b) => {
@@ -57,6 +52,7 @@ function ShopPage() {
       <section className="product-sorting">
         <SearchBar searchValue={searchValue} setSearchValue={setSearchValue} />
         <AccordionSort
+          sortByValue={sortByValue}
           setSortByValue={setSortByValue}
           options={[
             { property: 'price', type: 'number' },
@@ -68,6 +64,7 @@ function ShopPage() {
         />
       </section>
       <section className="products">
+        {currentProducts.length < 1 && searchValue && <div>No search results...</div>}
         {currentProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

@@ -11,16 +11,16 @@ interface SortProductsArgs {
 }
 interface AccordionSortProps {
   options: { property: keyof ProductProps; type: string }[];
-  sortByValue: SortProductsArgs | 'default';
-  setSortByValue: Dispatch<SetStateAction<'default' | SortProductsArgs>>;
+  sortByValue: SortProductsArgs | null;
+  setSortByValue: Dispatch<SetStateAction<null | SortProductsArgs>>;
 }
 
 function AccordionSort({ sortByValue, setSortByValue, options }: AccordionSortProps) {
   const [toggle, setToggle] = useState(false);
-  const [currentOption, setCurrentOption] = useState<false | string>(false);
+  const [currentOption, setCurrentOption] = useState<null | string>(null);
 
   useEffect(() => {
-    if (sortByValue === 'default') return setCurrentOption(false);
+    if (!sortByValue) return setCurrentOption(null);
     let property: string;
     let num: string;
     let str: string;
@@ -37,7 +37,7 @@ function AccordionSort({ sortByValue, setSortByValue, options }: AccordionSortPr
         className="clear-sort"
         onClick={() => {
           setToggle(false);
-          setSortByValue('default');
+          setSortByValue(null);
         }}
         aria-label="reset sort to default"
       >
