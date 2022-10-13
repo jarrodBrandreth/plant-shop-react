@@ -1,120 +1,104 @@
-import React, { ChangeEvent, SyntheticEvent, SetStateAction, Dispatch } from 'react';
+import React, { ChangeEvent, SyntheticEvent, SetStateAction, Dispatch, Fragment } from 'react';
 import { useCheckOutContext } from '../../context/CheckOutContext';
+import { IsValidProps } from '../../types/Types';
 
 interface ShippingProps {
-  setShippingIsValid: Dispatch<SetStateAction<boolean>>;
+  setIsValid: Dispatch<SetStateAction<IsValidProps>>;
 }
 
-function Shipping({ setShippingIsValid }: ShippingProps) {
-  const { orderForm, setOrderForm } = useCheckOutContext();
+function Shipping({ setIsValid }: ShippingProps) {
+  const { storePickUp, setStorePickUp, shippingForm, setShippingForm, setBillingShippingSame } =
+    useCheckOutContext();
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    setShippingIsValid(true);
+    setIsValid((isValid) => ({
+      ...isValid,
+      shipping: true,
+    }));
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setOrderForm((orderForm) => ({
-      ...orderForm,
-      shipping: {
-        ...orderForm.shipping,
-        [name]: value,
-      },
+    setShippingForm((shippingForm) => ({
+      ...shippingForm,
+      [name]: value,
     }));
   };
 
+  const handleInStorePickUp = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === 'yes') {
+      setShippingForm({
+        first_name: '',
+        last_name: '',
+        address: '',
+        city: '',
+        state: '',
+        postal_code: '',
+        email: '',
+        phone_number: '',
+      });
+      setBillingShippingSame(false);
+      setIsValid((isValid) => ({
+        ...isValid,
+        shipping: true,
+      }));
+      return setStorePickUp(true);
+    }
+    setStorePickUp(false);
+  };
+
   return (
-    <div>
+    <div className="forms-container">
       <form className="checkout-grid shipping" onSubmit={handleSubmit}>
         <h3 className="form-header">Shipping</h3>
-        <label htmlFor="first-name">First Name:</label>
-        <input
-          type="text"
-          name="first_name"
-          id="first-name"
-          placeholder="first name"
-          value={orderForm.shipping.first_name}
-          // pattern='^[a-zA-Z]+$'
-          required
-          onChange={handleChange}
-        />
-        <label htmlFor="last-name">Last Name:</label>
-        <input
-          type="text"
-          name="last_name"
-          id="last-name"
-          placeholder="last name"
-          value={orderForm.shipping.last_name}
-          // pattern='^[a-zA-Z]+$'
-          required
-          onChange={handleChange}
-        />
-        <label htmlFor="address">Address:</label>
-        <input
-          type="text"
-          name="address"
-          id="address"
-          placeholder="address"
-          value={orderForm.shipping.address}
-          // pattern='^[a-zA-Z]+$'
-          required
-          onChange={handleChange}
-        />
-        <label htmlFor="city">City:</label>
-        <input
-          type="text"
-          name="city"
-          id="city"
-          required
-          placeholder="city"
-          value={orderForm.shipping.city}
-          // pattern='^[a-zA-Z]+$'
-          onChange={handleChange}
-        />
-        <label htmlFor="state">State:</label>
-        <input
-          type="text"
-          name="state"
-          id="state"
-          required
-          placeholder="state"
-          value={orderForm.shipping.state}
-          // pattern='^[a-zA-Z]+$'
-          onChange={handleChange}
-        />
-        <label htmlFor="postal-code">Postal Code:</label>
-        <input
-          type="text"
-          name="postal_code"
-          id="postal-code"
-          placeholder="postal code"
-          value={orderForm.shipping.postal_code}
-          // pattern='^[0-9]+$'
-          required
-          onChange={handleChange}
-        />
-        <label htmlFor="email">Email:</label>
-        <input
-          type="text"
-          name="email"
-          id="email"
-          placeholder="email"
-          value={orderForm.shipping.email}
-          // pattern='^[a-zA-Z]+$'
-          required
-          onChange={handleChange}
-        />
-        <label htmlFor="phone-number">Phone Number:</label>
-        <input
-          type="text"
-          name="phone_number"
-          id="phone-number"
-          placeholder="phone number"
-          value={orderForm.shipping.phone_number}
-          // pattern='^[0-9]+$'
-          required
-          onChange={handleChange}
-        />
+        <div className="radio-container">
+          <div className="title">Pick Up In Store</div>
+          <div className="choices">
+            <div className="choice-yes">
+              <input
+                type="radio"
+                id="yes-pick-up"
+                name="store_pickup"
+                value="yes"
+                checked={storePickUp === true}
+                required
+                onChange={handleInStorePickUp}
+              />
+              <label htmlFor="yes-pick-up">Yes</label>
+            </div>
+            <div className="choice-no">
+              <input
+                type="radio"
+                id="no-pick-up"
+                name="store_pickup"
+                value="no"
+                checked={storePickUp === false}
+                required
+                onChange={handleInStorePickUp}
+              />
+              <label htmlFor="no-pick-up">No</label>
+            </div>
+          </div>
+        </div>
+        {Object.entries(shippingForm).map((entry) => {
+          const key = entry[0];
+          const value = entry[1];
+          return (
+            <Fragment key={key}>
+              <label htmlFor={key}>{key.replaceAll('_', ' ')}</label>
+              <input
+                type="text"
+                name={key}
+                id={key}
+                placeholder={key.replaceAll('_', ' ')}
+                value={storePickUp ? '' : value}
+                disabled={storePickUp ? true : false}
+                required
+                onChange={handleChange}
+              />
+            </Fragment>
+          );
+        })}
         <div className="button-container">
           <button type="submit" className="proceed">
             Proceed To Billing
