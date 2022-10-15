@@ -42,6 +42,7 @@ h1,h2,h3,h4,h5,h6 {
 
 .btn-style {
   width: 100%;
+  display: block;
   padding: 12px 20px;
   margin: 18px auto;
   background-color: #000000;
@@ -49,7 +50,7 @@ h1,h2,h3,h4,h5,h6 {
   border: none;
   text-transform: uppercase;
   border-radius: 4px;
-  display: block;
+  font-weight: 600;
 }
 
 .btn-style:hover {

@@ -17,6 +17,7 @@ function CheckOutPage() {
     billing: false,
     confirmed: false,
   });
+  const [startForm, setStartForm] = useState(false);
 
   if (cart.totalProducts < 1 && !isValid.confirmed) {
     return (
@@ -33,8 +34,10 @@ function CheckOutPage() {
   return (
     <CheckOutProvider>
       <main className="checkout">
-        {!isValid.confirmed && <OrderSummary isValid={isValid} />}
-        {!isValid.shipping && <Shipping setIsValid={setIsValid} />}
+        {!isValid.confirmed && (
+          <OrderSummary isValid={isValid} startForm={startForm} setStartForm={setStartForm} />
+        )}
+        {!isValid.shipping && startForm && <Shipping setIsValid={setIsValid} />}
         {isValid.shipping && !isValid.billing && <Billing setIsValid={setIsValid} />}
         {isValid.shipping && isValid.billing && !isValid.confirmed && (
           <Confirm setIsValid={setIsValid} />

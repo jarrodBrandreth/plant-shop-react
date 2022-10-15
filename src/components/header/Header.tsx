@@ -14,6 +14,7 @@ function Header() {
     <header
       className="header"
       style={{
+        boxShadow: `${onHomePage ? 'none' : ''}`,
         backgroundColor: `${onHomePage ? 'transparent' : ''}`,
         color: `${onHomePage ? 'white' : ''}`,
       }}

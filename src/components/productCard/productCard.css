@@ -1,7 +1,8 @@
 .product-card {
   position: relative;
   width: min(300px, 100%);
-  box-shadow: 0 1px 3px #0000001f, 0 1px 2px rgba(0, 0, 0, 0.24);
+  /* box-shadow: 0 1px 3px #0000001f, 0 1px 2px rgba(0, 0, 0, 0.24); */
+  box-shadow: 0px 3px 6px 0px rgb(0 0 0 / 10%), 0px 1px 3px 0px rgb(0 0 0 / 8%);
   border-radius: 4px;
 }
 

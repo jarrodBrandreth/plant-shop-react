@@ -1,3 +1,12 @@
+.checkout {
+  position: relative;
+}
+
+.checkout-empty {
+  display: flex;
+  justify-content: center;
+}
+
 .checkout .highlight {
   font-weight: 600;
   text-transform: capitalize;
@@ -52,6 +61,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  background-color: #a4caa4bd;
 }
 
 .checkout .item-display > * {
@@ -100,13 +110,72 @@
 
 /* Order Summary styles */
 
+.show-order-summary {
+  width: max-content;
+  position: sticky;
+  top: 100px;
+  left: 50%;
+  font-weight: 600;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 14px;
+  border: none;
+  color: #ffffff;
+  background-color: #228b22;
+  box-shadow: 0px 3px 6px 0px rgb(0 0 0 / 10%), 0px 1px 3px 0px rgb(0 0 0 / 8%);
+  z-index: 20;
+}
+
+.show-order-summary > * {
+  margin-left: 4px;
+}
+
+.order-summary-wrapper.started {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: none;
+}
+
+.order-summary-wrapper.show {
+  display: block;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 5;
+}
+
+.order-summary-wrapper.show .order-summary {
+  margin: 0;
+  position: fixed;
+  top: 130px;
+  left: 50vw;
+  transform: translateX(-50%);
+}
+
 .order-summary {
   max-width: 300px;
-  border: 1px solid #000000;
+  border: 2px solid #000000;
+  background-color: #ffffff;
+  margin: 60px auto;
+  border-radius: 10px;
+  text-transform: capitalize;
+}
+
+.order-summary .two-column-grid {
+  gap: 12px;
 }
 
 .order-summary > * {
-  margin: 14px;
+  margin: 12px;
+}
+
+.order-summary .items-container {
+  max-height: 240px;
+  border-radius: 4px;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .order-summary .price-breakdown {
@@ -120,10 +189,14 @@
   max-width: 600px;
   border: 1px solid #00000066;
   border-radius: 10px;
+  margin: 60px auto;
+  box-shadow: 0px 3px 6px 0px rgb(0 0 0 / 10%), 0px 1px 3px 0px rgb(0 0 0 / 8%);
 }
 
 /* Confirmation */
-
+.confirmation .description {
+  padding: 14px;
+}
 .confirmation .key {
   text-align: end;
   text-transform: capitalize;
