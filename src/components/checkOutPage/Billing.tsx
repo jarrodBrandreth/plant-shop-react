@@ -43,13 +43,13 @@ function Billing({ setIsValid }: BillingProps) {
   };
 
   return (
-    <div className="forms-container">
-      <form className="checkout-grid billing" onSubmit={handleSubmit}>
-        <h3 className="form-header">Billing</h3>
+    <section className="billing">
+      <h3 className="banner">Billing</h3>
+      <form className="two-column-grid" onSubmit={handleSubmit}>
         <div className="button-container top">
           <button
             type="button"
-            className="previous"
+            className="previous form-btn-style"
             onClick={() => {
               setIsValid((isValid) => ({
                 ...isValid,
@@ -62,7 +62,7 @@ function Billing({ setIsValid }: BillingProps) {
         </div>
         {!storePickUp && (
           <div className="radio-container">
-            <div className="title">Billing same as shipping</div>
+            <div className="highlight">Billing same as shipping</div>
             <div className="choices">
               <div className="choice-yes">
                 <input
@@ -105,7 +105,9 @@ function Billing({ setIsValid }: BillingProps) {
           ];
           return (
             <Fragment key={key}>
-              <label htmlFor={key}>{key.replaceAll('_', ' ')}</label>
+              <label className="highlight" htmlFor={key}>
+                {key.replaceAll('_', ' ')}
+              </label>
               <input
                 type={key === 'card_expiration' ? 'date' : 'text'}
                 name={key}
@@ -124,13 +126,13 @@ function Billing({ setIsValid }: BillingProps) {
           );
         })}
         <div className="button-container">
-          <button type="submit" className="proceed">
+          <button type="submit" className="form-btn-style proceed">
             Proceed To Confirmation
           </button>
         </div>
-        <div className="up-next form-footer">Up next: Confirmation</div>
       </form>
-    </div>
+      <div className="up-next banner foot">Up next: Confirmation</div>
+    </section>
   );
 }
 

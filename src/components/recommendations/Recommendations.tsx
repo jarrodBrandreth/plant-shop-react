@@ -14,25 +14,12 @@ function Recommendations({ excluded, products, numOfSuggestions, title }: Recomm
   const [recommendations, setRecommendations] = useState<Array<ProductProps>>([]);
 
   useEffect(() => {
-    const getRecommendations = () => {
-      // make an array of id's from excluded products
-      const excludedIDs = excluded.map((product) => product.id);
-      // filter options from excluded products
-      const options = products.filter((product) => excludedIDs.includes(product.id) !== true);
-      let suggestions:ProductProps[] = [];
-
-      if (options.length < numOfSuggestions) { suggestions = [...options]}
-      // get numOfSuggestions amount random products
-      while (suggestions.length < numOfSuggestions && options.length > numOfSuggestions) {
-        
-        const randomIndex = Math.floor(Math.random() * options.length);
-        suggestions.push(options[randomIndex]);
-        options.splice(randomIndex, 1);
-      }
-      return setRecommendations(suggestions);
-    };
-    getRecommendations();
-  }, [excluded, products,numOfSuggestions]);
+    const excludedIDs = excluded.map((product) => product.id);
+    const options = products.filter((product) => excludedIDs.includes(product.id) !== true);
+    if (options.length < numOfSuggestions) return setRecommendations([...products]);
+    options.sort(() => Math.random() - 0.5);
+    setRecommendations(options.slice(0, numOfSuggestions));
+  }, [excluded, numOfSuggestions, products]);
 
   return (
     <div className="recommendations">

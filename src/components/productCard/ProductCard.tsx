@@ -9,8 +9,8 @@ import { ReactComponent as DropletIcon } from '../../assets/icons/water-outline.
 import { ReactComponent as DropletIconFill } from '../../assets/icons/water-sharp.svg';
 import { ReactComponent as MaintenanceIcon } from '../../assets/icons/cut-outline.svg';
 import { ReactComponent as MaintenanceIconFill } from '../../assets/icons/cut-sharp.svg';
-import { ProductProps } from '../../types/Types';
 import { formatCurrency } from '../../currencyFunction';
+import { ProductProps } from '../../types/Types';
 import './productCard.css';
 
 interface ProductCardProps {

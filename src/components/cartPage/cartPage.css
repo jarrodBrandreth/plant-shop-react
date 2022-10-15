@@ -1,12 +1,10 @@
 .cart-wrapper {
-  /* background-color: rgba(255, 99, 71, 0.488); */
   width: 100vw;
 }
 
 .cart {
   max-width: 500px;
-  margin: auto;
-  border: 1px solid black;
+  margin: 40px auto;
   border-radius: 4px;
 }
 
@@ -44,8 +42,7 @@
 
 .cart .total-cart {
   text-align: end;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid #000000;
   padding: 4px 12px 4px 4px;
 }
 

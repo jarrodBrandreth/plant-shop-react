@@ -1,16 +1,26 @@
 .recommendations {
-  max-width: 900px;
-  margin: auto;
+  width: min(1000px, 100%);
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0 1px 3px #0000001f, 0 1px 2px #0000003d;
+  border-radius: 4px;
 }
 
 .recommendations .title {
+  margin-bottom: 20px;
   text-align: center;
-  margin: 12px;
+  text-transform: capitalize;
 }
 
 .recommendations .products {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 20px;
-  padding: 20px;
+  margin: auto;
+  max-width: 980px;
+}
+
+.recommendations .product-card {
+  border: 1px solid #0000001a;
+  box-shadow: none;
 }

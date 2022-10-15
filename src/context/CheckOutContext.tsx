@@ -67,6 +67,7 @@ export function CheckOutProvider({ children }: any) {
       return {
         id: currentProduct.product.id,
         name: currentProduct.product.name,
+        image: currentProduct.product.image,
         quantity: currentProduct.quantity,
       };
     });

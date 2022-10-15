@@ -9,6 +9,7 @@ interface SortProductsArgs {
   property: keyof ProductProps;
   decreasing: boolean;
 }
+
 interface AccordionSortProps {
   options: { property: keyof ProductProps; type: string }[];
   sortByValue: SortProductsArgs | null;

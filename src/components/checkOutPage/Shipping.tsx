@@ -48,11 +48,11 @@ function Shipping({ setIsValid }: ShippingProps) {
   };
 
   return (
-    <div className="forms-container">
-      <form className="checkout-grid shipping" onSubmit={handleSubmit}>
-        <h3 className="form-header">Shipping</h3>
+    <section className="shipping">
+      <h3 className="banner">Shipping</h3>
+      <form className="two-column-grid" onSubmit={handleSubmit}>
         <div className="radio-container">
-          <div className="title">Pick Up In Store</div>
+          <div className=" highlight">Pick Up In Store</div>
           <div className="choices">
             <div className="choice-yes">
               <input
@@ -85,7 +85,9 @@ function Shipping({ setIsValid }: ShippingProps) {
           const value = entry[1];
           return (
             <Fragment key={key}>
-              <label htmlFor={key}>{key.replaceAll('_', ' ')}</label>
+              <label className="highlight" htmlFor={key}>
+                {key.replaceAll('_', ' ')}
+              </label>
               <input
                 type="text"
                 name={key}
@@ -100,13 +102,13 @@ function Shipping({ setIsValid }: ShippingProps) {
           );
         })}
         <div className="button-container">
-          <button type="submit" className="proceed">
+          <button type="submit" className="form-btn-style proceed ">
             Proceed To Billing
           </button>
         </div>
-        <div className="up-next form-footer">Up Next: Billing</div>
       </form>
-    </div>
+      <div className="up-next banner foot">Up Next: Billing</div>
+    </section>
   );
 }
 

@@ -54,6 +54,7 @@ export interface OrderProductsProps {
   id: number;
   name: string;
   quantity: number;
+  image: string;
 }
 
 export interface IsValidProps {
@@ -66,7 +67,7 @@ export interface FinalOrderProps {
   order_number: string;
   order_products: OrderProductsProps[];
   store_pick_up: boolean;
-  shipping: ShippingFormProps;
+  shipping?: ShippingFormProps;
   billing: BillingFormProps;
   cost: CostProps;
 }

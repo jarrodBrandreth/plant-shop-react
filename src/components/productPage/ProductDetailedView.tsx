@@ -8,8 +8,9 @@ import { ReactComponent as DropletIcon } from '../../assets/icons/water-outline.
 import { ReactComponent as DropletIconFill } from '../../assets/icons/water-sharp.svg';
 import { ReactComponent as MaintenanceIcon } from '../../assets/icons/cut-outline.svg';
 import { ReactComponent as MaintenanceIconFill } from '../../assets/icons/cut-sharp.svg';
-import { ProductAsProps } from '../../types/Types';
+import { ReactComponent as AddToBagIcon } from '../../assets/icons/bag-add-outline.svg';
 import { formatCurrency } from '../../currencyFunction';
+import { ProductAsProps } from '../../types/Types';
 import './productDetailedView.css';
 
 function ProductDetailedView({ product }: ProductAsProps) {
@@ -39,32 +40,32 @@ function ProductDetailedView({ product }: ProductAsProps) {
           <div className="field-container">
             <span className="title">Sun Needs:</span>
             <Rating
-            Icon={SunIcon}
-            IconFilled={SunIconFill}
-            number={product.sun}
-            width="24px"
-            fill="#FABD02"
-          />
+              Icon={SunIcon}
+              IconFilled={SunIconFill}
+              number={product.sun}
+              width="24px"
+              fill="#FABD02"
+            />
           </div>
           <div className="field-container">
             <span className="title">Water Needs:</span>
             <Rating
-            Icon={DropletIcon}
-            IconFilled={DropletIconFill}
-            number={product.water}
-            width="24px"
-            fill="#1F456E"
-          />
+              Icon={DropletIcon}
+              IconFilled={DropletIconFill}
+              number={product.water}
+              width="24px"
+              fill="#1F456E"
+            />
           </div>
           <div className="field-container">
             <span className="title">Maintenance:</span>
             <Rating
-            Icon={MaintenanceIcon}
-            IconFilled={MaintenanceIconFill}
-            number={product.maintenance}
-            width="24px"
-            fill="#3D251E"
-          />
+              Icon={MaintenanceIcon}
+              IconFilled={MaintenanceIconFill}
+              number={product.maintenance}
+              width="24px"
+              fill="#3D251E"
+            />
           </div>
 
           <details className="drop-down">
@@ -88,7 +89,8 @@ function ProductDetailedView({ product }: ProductAsProps) {
           * All plants will be shipped with an appropriate pot for growing. Color may vary, pick up
           at our store location to get a pot of your choosing.
         </div>
-        <button onClick={() => cart.addToCart(product)} className="btn-style">
+        <button onClick={() => cart.addToCart(product)} className="btn-style add-with-icon">
+          <AddToBagIcon className="icon" width="22px" />
           Add To Bag
         </button>
       </section>

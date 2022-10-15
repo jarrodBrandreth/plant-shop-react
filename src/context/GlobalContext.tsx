@@ -8,13 +8,13 @@ interface GlobalContextProps {
   };
   products: ProductProps[];
   likedItems: ProductProps[];
-  checkIfLiked: (item: ProductProps) => boolean;
   updateLikedItems: (item: ProductProps) => void;
   cart: {
     items: CartProductProps[];
     totalPrice: number;
     totalProducts: number;
     addToCart: (item: ProductProps) => void;
+    clearCart: () => void;
     removeByQuantity: (id: number) => void;
     removeItemFromCart: (id: number) => void;
   };
@@ -46,13 +46,6 @@ export function GlobalProvider({ children }: any) {
     };
     fetchData();
   }, []);
-
-  // checks if item provided is in the likedItems State returns a boolean
-  const checkIfLiked = (item: ProductProps): boolean => {
-    const contains = likedItems.find((product) => product.id === item.id);
-    if (contains) return true;
-    return false;
-  };
 
   // takes item and either adds it to liked items or removes it if it contains it
   const updateLikedItems = (item: ProductProps) => {
@@ -98,6 +91,8 @@ export function GlobalProvider({ children }: any) {
     setCartItems(result);
   };
 
+  const clearCart = () => setCartItems([]);
+
   const getTotalPrice = (cartItems: CartProductProps[]): number => {
     if (cartItems.length === 0) return 0;
     return cartItems.reduce((total, currentItem) => {
@@ -118,11 +113,11 @@ export function GlobalProvider({ children }: any) {
     },
     products: products,
     likedItems,
-    checkIfLiked,
     updateLikedItems,
     cart: {
       items: cartItems,
       addToCart,
+      clearCart,
       removeItemFromCart,
       removeByQuantity,
       totalPrice,

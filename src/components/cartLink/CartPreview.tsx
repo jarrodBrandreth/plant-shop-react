@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CartProductProps } from '../../types/Types';
-import { formatCurrency } from '../../currencyFunction';
 import { ReactComponent as ArrowForward } from '../../assets/icons/arrow-forward-circle-outline.svg';
+import { formatCurrency } from '../../currencyFunction';
+import { CartProductProps } from '../../types/Types';
 import './cartPreview.css';
 
 interface CartPreviewProps {
@@ -23,7 +23,7 @@ function CartPreview({ items, totalPrice }: CartPreviewProps) {
   return (
     <div className="cart-preview-wrapper">
       <div className="cart-preview">
-        <h3 className='title'>Cart Preview</h3>
+        <h3 className="title">Cart Preview</h3>
         <div className="items">
           {items.map((item) => {
             return (
@@ -46,8 +46,8 @@ function CartPreview({ items, totalPrice }: CartPreviewProps) {
           <span>{formatCurrency(totalPrice)}</span>
         </div>
         <div className="bottom-links">
-          <Link className="checkout-link" to="/checkout">
-            <span>checkout</span>
+          <Link className="icon-text-link" to="/checkout">
+            checkout
             <ArrowForward width="20px" />
           </Link>
         </div>

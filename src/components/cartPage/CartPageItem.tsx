@@ -1,8 +1,9 @@
 import { useGlobalContext } from '../../context/GlobalContext';
-import { CartProductProps } from '../../types/Types';
+import { Link } from 'react-router-dom';
 import { ReactComponent as TrashIcon } from '../../assets/icons/trash-outline.svg';
 import { ReactComponent as PlusCircle } from '../../assets/icons/add-circle-outline.svg';
 import { ReactComponent as MinusCircle } from '../../assets/icons/remove-circle-outline.svg';
+import { CartProductProps } from '../../types/Types';
 import { formatCurrency } from '../../currencyFunction';
 import './cartPageItem.css';
 
@@ -11,11 +12,13 @@ interface CartPageItemProps {
 }
 
 function CartPageItem({ item }: CartPageItemProps) {
-  const { cart } = useGlobalContext()
+  const { cart } = useGlobalContext();
   return (
     <div className="cart-page-item">
       <h4 className="name">{item.product.name}</h4>
-      <img className="image" src={item.product.image} alt={item.product.name} />
+      <Link className="image-link" to={`/shop/${item.product.id}`}>
+        <img className="image" src={item.product.image} alt={item.product.name} />
+      </Link>
       <div className="price">{formatCurrency(item.product.price)}</div>
       <div className="quantity">
         <button className="increase" onClick={() => cart.addToCart(item.product)}>
@@ -27,9 +30,11 @@ function CartPageItem({ item }: CartPageItemProps) {
         </button>
         <button className="trash" onClick={() => cart.removeItemFromCart(item.product.id)}>
           <TrashIcon width="20px" />
-          </button>
+        </button>
       </div>
-      <div className="total-price"><span className='text'>Total: </span> {formatCurrency(item.product.price * item.quantity)}</div>
+      <div className="total-price">
+        <span className="text">Total: </span> {formatCurrency(item.product.price * item.quantity)}
+      </div>
     </div>
   );
 }

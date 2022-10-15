@@ -9,9 +9,14 @@ function NavBar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className={`nav-bar ${open ? 'open' : ''}`}>
+    <div
+      className={`nav-bar ${open ? 'open' : ''}`}
+      onClick={() => {
+        if (open) setOpen(false);
+      }}
+    >
       <button className="burger" onClick={() => setOpen(!open)}>
-        {open ? <Close width="30px" color="white" /> : <Menu width="30px" color="black" />}
+        {open ? <Close width="30px" color="white" /> : <Menu width="30px" color="inherit" />}
       </button>
       <CartLink />
       <nav className="navigation">

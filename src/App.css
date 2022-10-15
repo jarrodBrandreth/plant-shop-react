@@ -44,8 +44,8 @@ h1,h2,h3,h4,h5,h6 {
   width: 100%;
   padding: 12px 20px;
   margin: 18px auto;
-  background-color: black;
-  color: white;
+  background-color: #000000;
+  color: #ffffff;
   border: none;
   text-transform: uppercase;
   border-radius: 4px;
@@ -53,5 +53,17 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .btn-style:hover {
-  background-color: rgb(62, 62, 62);
+  background-color: #3e3e3e;
+}
+
+.icon-text-link {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+}
+
+.icon-text-link > * {
+  margin: 0px 4px;
 }

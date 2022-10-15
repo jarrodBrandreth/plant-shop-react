@@ -1,6 +1,6 @@
 import React from 'react';
-import { ReactComponent as AddToBagIcon } from '../../assets/icons/bag-add-outline.svg';
 import { useGlobalContext } from '../../context/GlobalContext';
+import { ReactComponent as AddToBagIcon } from '../../assets/icons/bag-add-outline.svg';
 import { ProductProps } from '../../types/Types';
 
 interface AddToBagIconButtonProps {
@@ -10,7 +10,7 @@ interface AddToBagIconButtonProps {
 
 function AddToBagIconButton({ product, width }: AddToBagIconButtonProps) {
   const { cart } = useGlobalContext();
-  
+
   return (
     <button className="add-to-bag-btn" onClick={() => cart.addToCart(product)}>
       <AddToBagIcon width={width} />

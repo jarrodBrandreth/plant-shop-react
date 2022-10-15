@@ -11,6 +11,7 @@
 }
 
 .nav-bar .burger {
+  color: inherit;
   background-color: transparent;
   border: none;
   z-index: 10;
@@ -23,7 +24,7 @@
   left: -1000px;
   transition: all 0.25s;
   border-radius: 4px;
-  background-color: hsla(0, 0%, 0%, 0.599);
+  background-color: #00000099;
   backdrop-filter: blur(10px);
 }
 
@@ -33,7 +34,7 @@
 }
 
 .navigation ul {
-  color: white;
+  color: #ffffff;
   padding: 120px 60px 20px 30px;
 }
 
@@ -50,7 +51,7 @@
   transform: translateX(-50%);
   padding: 10px 20px 12px 20px;
   text-align: center;
-  color: white;
+  color: #ffffff;
 }
 
 .nav-bar .nav-store-title .store-name {
@@ -73,12 +74,8 @@
   }
 
   .nav-bar.open .cart-link .bag {
-    color: white;
+    color: #ffffff;
     transition: all 0s 0.25s;
-  }
-
-  .nav-bar.open .cart-link .cart-number {
-    border: 1px solid transparent;
   }
 
   .nav-bar.open .nav-store-title {
