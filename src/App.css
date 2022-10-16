@@ -4,6 +4,7 @@
 :root {
   --main-font:'Roboto', sans-serif;
   font-family: var(--main-font);
+  color: black;
 }
 
 *,*::before,*::after {
@@ -14,6 +15,7 @@
 
 button {
   cursor: pointer;
+  color: #000000;
 }
 
 li {

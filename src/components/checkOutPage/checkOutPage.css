@@ -61,7 +61,6 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background-color: #a4caa4bd;
 }
 
 .checkout .item-display > * {
@@ -169,6 +168,10 @@
 
 .order-summary > * {
   margin: 12px;
+}
+
+.order-summary .item-display {
+  background-color: #a4caa4bd;
 }
 
 .order-summary .items-container {

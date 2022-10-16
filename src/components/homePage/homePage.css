@@ -19,6 +19,9 @@
 @media (max-width: 525px) {
   .home {
     background:no-repeat center/cover url('../../assets/images/bg-mobile.jpg');
-    align-items: flex-end;
+  }
+
+  .home .btn-style {
+    margin-top: 66vh;
   }
 }
