@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import LikeButton from '../likeButton/LikeButton';
-import AddToBagIconButton from './AddToBagIconButton';
+import AddToCartButton from '../addToCartButton/AddToCartButton';
 import Rating from '../rating/Rating';
+import { ReactComponent as BagAdd } from '../../assets/icons/bag-add-outline.svg';
 import { ReactComponent as SunIcon } from '../../assets/icons/sunny-outline.svg';
 import { ReactComponent as SunIconFill } from '../../assets/icons/sunny-sharp.svg';
 import { ReactComponent as DropletIcon } from '../../assets/icons/water-outline.svg';
@@ -49,7 +50,13 @@ function ProductCard({ product }: ProductCardProps) {
           />
         </div>
       </Link>
-      <AddToBagIconButton product={product} width="22px" />
+      <AddToCartButton
+        Icon={BagAdd}
+        iconWidth="22px"
+        className="add-to-bag-btn"
+        text={null}
+        product={product}
+      />
       <LikeButton product={product} width="22px" />
     </div>
   );

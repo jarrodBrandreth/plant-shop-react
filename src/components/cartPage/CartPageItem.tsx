@@ -1,5 +1,6 @@
 import { useGlobalContext } from '../../context/GlobalContext';
 import { Link } from 'react-router-dom';
+import AddToCartButton from '../addToCartButton/AddToCartButton';
 import { ReactComponent as TrashIcon } from '../../assets/icons/trash-outline.svg';
 import { ReactComponent as PlusCircle } from '../../assets/icons/add-circle-outline.svg';
 import { ReactComponent as MinusCircle } from '../../assets/icons/remove-circle-outline.svg';
@@ -21,9 +22,13 @@ function CartPageItem({ item }: CartPageItemProps) {
       </Link>
       <div className="price">{formatCurrency(item.product.price)}</div>
       <div className="quantity">
-        <button className="increase" onClick={() => cart.addToCart(item.product)}>
-          <PlusCircle width="20px" />
-        </button>
+        <AddToCartButton
+          className="increase"
+          Icon={PlusCircle}
+          iconWidth="20px"
+          text={null}
+          product={item.product}
+        />
         <span className="number">{item.quantity}</span>
         <button className="decrease" onClick={() => cart.removeByQuantity(item.product.id)}>
           <MinusCircle width="20px" />

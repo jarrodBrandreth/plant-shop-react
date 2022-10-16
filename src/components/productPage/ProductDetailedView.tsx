@@ -1,20 +1,19 @@
 import React from 'react';
-import { useGlobalContext } from '../../context/GlobalContext';
 import LikeButton from '../likeButton/LikeButton';
 import Rating from '../rating/Rating';
+import AddToCartButton from '../addToCartButton/AddToCartButton';
 import { ReactComponent as SunIcon } from '../../assets/icons/sunny-outline.svg';
 import { ReactComponent as SunIconFill } from '../../assets/icons/sunny-sharp.svg';
 import { ReactComponent as DropletIcon } from '../../assets/icons/water-outline.svg';
 import { ReactComponent as DropletIconFill } from '../../assets/icons/water-sharp.svg';
 import { ReactComponent as MaintenanceIcon } from '../../assets/icons/cut-outline.svg';
 import { ReactComponent as MaintenanceIconFill } from '../../assets/icons/cut-sharp.svg';
-import { ReactComponent as AddToBagIcon } from '../../assets/icons/bag-add-outline.svg';
+import { ReactComponent as BagAdd } from '../../assets/icons/bag-add-outline.svg';
 import { formatCurrency } from '../../currencyFunction';
 import { ProductAsProps } from '../../types/Types';
 import './productDetailedView.css';
 
 function ProductDetailedView({ product }: ProductAsProps) {
-  const { cart } = useGlobalContext();
   return (
     <div className="product-detailed-view">
       <div className="image-container">
@@ -89,10 +88,13 @@ function ProductDetailedView({ product }: ProductAsProps) {
           * All plants will be shipped with an appropriate pot for growing. Color may vary, pick up
           at our store location to get a pot of your choosing.
         </div>
-        <button onClick={() => cart.addToCart(product)} className="btn-style add-with-icon">
-          <AddToBagIcon className="icon" width="22px" />
-          Add To Bag
-        </button>
+        <AddToCartButton
+          className="btn-style add-with-icon"
+          Icon={BagAdd}
+          iconWidth="22px"
+          product={product}
+          text="Add To Bag"
+        />
       </section>
     </div>
   );
