@@ -17,7 +17,7 @@ function Recommendations({ excluded, products, numOfSuggestions, title }: Recomm
     const excludedIDs = excluded.map((product) => product.id);
     const options = products.filter((product) => excludedIDs.includes(product.id) !== true);
     if (options.length < numOfSuggestions) return setRecommendations([...products]);
-    options.sort(() => Math.random() - 0.5);
+    options.sort((a, b) => a.price - b.price);
     setRecommendations(options.slice(0, numOfSuggestions));
   }, [excluded, numOfSuggestions, products]);
 

@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import NavBar from '../navBar/NavBar';
 import './header.css';
 
 function Header() {
-  const location = useLocation();
-  const [onHomePage, setOnHomePage] = useState<boolean>();
-  useEffect(() => {
-    setOnHomePage(location.pathname === '/');
-  }, [location]);
+  const onHomePage = useLocation().pathname === '/';
 
   return (
     <header

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useGlobalContext } from '../../context/GlobalContext';
 import CartPreview from './CartPreview';
 import { ReactComponent as BagIcon } from '../../assets/icons/bag-handle-outline.svg';
@@ -8,6 +8,7 @@ import './cartLink.css';
 
 function CartLink() {
   const { cart } = useGlobalContext();
+  const onHomePage = useLocation().pathname === '/';
   return (
     <div className="cart-link">
       <Link to="/cart">
@@ -21,7 +22,7 @@ function CartLink() {
           <BagIcon className="bag" fill="white" width="34px" />
         </div>
       </Link>
-      <CartPreview items={cart.items} totalPrice={cart.totalPrice} />
+      {!onHomePage && <CartPreview items={cart.items} totalPrice={cart.totalPrice} />}
     </div>
   );
 }
