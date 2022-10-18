@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { useState, Dispatch, SetStateAction, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { useCheckOutContext } from '../../context/CheckOutContext';
 import { ReactComponent as ArrowRight } from '../../assets/icons/arrow-forward-circle-outline.svg';
@@ -11,26 +11,65 @@ interface SuccessProps {
 
 function Success({ setIsValid }: SuccessProps) {
   const { order } = useCheckOutContext();
+  const [showShipping, setShowShipping] = useState(false);
 
   if (order) {
     return (
       <section className="success">
-        <h3 className="highlight">Order</h3>
-        <p className="message">Thanks For Your Order!</p>
-        <p className="message">A copy of your receipt will be sent to {order.billing.email}</p>
-        <p>Order Number: {order.order_number}</p>
-        <p>Price: {formatCurrency(order.cost.total)}</p>
-        <div className="items-container">
-          <h4>Items</h4>
-          {order.order_products.map((item) => {
-            return (
-              <div key={item.id} className="item-display">
-                <img className="image" src={item.image} alt={item.name} />
-                <span>{item.name}</span>
-                <span className="quantity">({item.quantity})</span>
-              </div>
-            );
-          })}
+        <h3 className="highlight">Thanks For Your Order!</h3>
+        <div className="message-container">
+          <p className="highlight">A copy of your receipt will be sent to:</p>
+          <p>{order.billing.email}</p>
+        </div>
+        <div className="message-container">
+          <p className="highlight">Order Number:</p>
+          <p>{order.order_number}</p>
+        </div>
+        <div className="message-container">
+          <p className="highlight">Price:</p>
+          <p>{formatCurrency(order.cost.total)}</p>
+        </div>
+
+        <div className="shipping-details">
+          <div className="heading-wrapper">
+            <h4 className="highlight">Shipping Details</h4>
+            <button className="view" onClick={() => setShowShipping(!showShipping)}>
+              {showShipping ? 'Show' : 'Hide'}
+            </button>
+          </div>
+          <div className={`two-column-grid ${showShipping ? 'open' : ''}`}>
+            {order.store_pick_up && (
+              <>
+                <span className="key">Store Pick Up:</span>
+                <span className="value">Yes</span>
+              </>
+            )}
+            {!order.store_pick_up &&
+              order.shipping &&
+              Object.entries(order.shipping).map((entry, index) => {
+                return (
+                  <Fragment key={index}>
+                    <span className="key">{entry[0].replaceAll('_', ' ')}:</span>
+                    <span className="value">{entry[1]}</span>
+                  </Fragment>
+                );
+              })}
+          </div>
+        </div>
+
+        <div className="success-items">
+          <h4 className="highlight">Items</h4>
+          <div className="items-container">
+            {order.order_products.map((item) => {
+              return (
+                <div key={item.id} className="item-display">
+                  <img className="image" src={item.image} alt={item.name} />
+                  <span>{item.name}</span>
+                  <span className="quantity">({item.quantity})</span>
+                </div>
+              );
+            })}
+          </div>
         </div>
         <Link to="/shop" className="continue-shopping form-btn-style icon-text-link">
           Continue Shopping

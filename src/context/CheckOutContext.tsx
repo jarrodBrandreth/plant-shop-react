@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect, Dispatch, SetStateActio
 import { useGlobalContext } from './GlobalContext';
 import { v4 as uuidv4 } from 'uuid';
 import {
-  OrderProductsProps,
+  OrderProductProps,
   FinalOrderProps,
   CostProps,
   ShippingFormProps,
@@ -11,7 +11,7 @@ import {
 
 interface CheckOutContextProps {
   order: FinalOrderProps | null;
-  orderProducts: OrderProductsProps[];
+  orderProducts: OrderProductProps[];
   cost: CostProps;
   storePickUp: boolean;
   setStorePickUp: Dispatch<SetStateAction<boolean>>;
@@ -27,11 +27,11 @@ interface CheckOutContextProps {
 const CheckOutContext = createContext<CheckOutContextProps | undefined>(undefined);
 
 export function CheckOutProvider({ children }: any) {
-  const { cart } = useGlobalContext();
+  const { cart, updateProductQty } = useGlobalContext();
   const [order, setOrder] = useState<FinalOrderProps | null>(null);
   const [storePickUp, setStorePickUp] = useState(false);
   const [billingShippingSame, setBillingShippingSame] = useState(true);
-  const [orderProducts, setOrderProducts] = useState<Array<OrderProductsProps>>([]);
+  const [orderProducts, setOrderProducts] = useState<Array<OrderProductProps>>([]);
   const [shippingForm, setShippingForm] = useState({
     first_name: '',
     last_name: '',
@@ -134,6 +134,7 @@ export function CheckOutProvider({ children }: any) {
       billing: billingForm,
       cost: cost,
     });
+    updateProductQty(orderProducts);
     cart.clearCart();
   };
 

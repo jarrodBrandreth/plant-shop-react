@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { ProductProps, CartProductProps } from '../types/Types';
+import { ProductProps, CartProductProps, OrderProductProps } from '../types/Types';
 
 interface GlobalContextProps {
   productStatus: {
@@ -7,6 +7,7 @@ interface GlobalContextProps {
     error: boolean;
   };
   products: ProductProps[];
+  updateProductQty: (orderProducts: OrderProductProps[]) => void;
   likedItems: ProductProps[];
   updateLikedItems: (item: ProductProps) => void;
   cart: {
@@ -47,10 +48,19 @@ export function GlobalProvider({ children }: any) {
     fetchData();
   }, []);
 
+  const updateProductQty = (orderProducts: OrderProductProps[]) => {
+    setProducts((products) => {
+      return products.map((product) => {
+        const orderItem = orderProducts.find((orderProduct) => orderProduct.id === product.id);
+        if (orderItem) product.quantity = product.quantity - orderItem.quantity;
+        return product;
+      });
+    });
+  };
+
   // takes item and either adds it to liked items or removes it if it contains it
   const updateLikedItems = (item: ProductProps) => {
     const index = likedItems.findIndex((product) => product.id === item.id);
-    // if contains then removes it, else adds it
     if (index >= 0) {
       const likedItemsCopy = [...likedItems];
       likedItemsCopy.splice(index, 1);
@@ -61,7 +71,6 @@ export function GlobalProvider({ children }: any) {
   };
 
   /* Cart Functions */
-
   const addToCart = (item: ProductProps) => {
     const newItem = { product: { ...item }, quantity: 1 };
     const productIndex = cartItems.findIndex((item) => item.product.id === newItem.product.id);
@@ -112,6 +121,7 @@ export function GlobalProvider({ children }: any) {
       loading: loading,
     },
     products: products,
+    updateProductQty,
     likedItems,
     updateLikedItems,
     cart: {

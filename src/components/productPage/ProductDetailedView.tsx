@@ -16,8 +16,12 @@ import './productDetailedView.css';
 function ProductDetailedView({ product }: ProductAsProps) {
   return (
     <div className="product-detailed-view">
-      <div className="image-container">
-        <img src={product.image} alt={product.name} />
+      <div className={`image-wrapper ${product.quantity < 1 ? 'sold-out' : ''}`}>
+        <img
+          className={product.quantity < 1 ? 'sold-out' : ''}
+          src={product.image}
+          alt={product.name}
+        />
         <LikeButton product={product} width="30px" />
       </div>
       <section className="info-container">

@@ -23,6 +23,14 @@ function CartPage() {
             Back To Shop
           </Link>
         </div>
+        {likedItems.length > 0 && (
+          <Recommendations
+            excluded={cartItemsProducts}
+            products={likedItems}
+            numOfSuggestions={10}
+            title="Consider adding some items you liked to your cart"
+          />
+        )}
       </section>
     );
 

@@ -4,6 +4,7 @@ import { ProductProps } from '../../types/Types';
 import ProductCard from '../productCard/ProductCard';
 import SearchBar from '../searchBar/SearchBar';
 import AccordionSort from '../accordionSort/AccordionSort';
+import { ReactComponent as LeafIcon } from '../../assets/icons/leaf-sharp.svg';
 import './shopPage.css';
 
 interface SortProductsArgs {
@@ -12,7 +13,7 @@ interface SortProductsArgs {
 }
 
 function ShopPage() {
-  const { products } = useGlobalContext();
+  const { products, productStatus } = useGlobalContext();
   const [currentProducts, setCurrentProducts] = useState<Array<ProductProps>>([]);
   const [searchValue, setSearchValue] = useState('');
   const [sortByValue, setSortByValue] = useState<SortProductsArgs | null>(null);
@@ -69,6 +70,12 @@ function ShopPage() {
           <ProductCard key={product.id} product={product} />
         ))}
       </section>
+      {productStatus.loading && (
+        <div className="loading-screen">
+          <LeafIcon className="leaf" width="60px" fill="forestgreen" />
+          Loading Products...
+        </div>
+      )}
     </main>
   );
 }

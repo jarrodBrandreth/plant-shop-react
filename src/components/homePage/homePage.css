@@ -7,7 +7,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: no-repeat center/cover url('../../assets/images/bg-desktop.jpg')
+  background: no-repeat center/cover url('../../assets/images/bg-desktop.jpg');
 }
 
 .home .btn-style {
@@ -18,7 +18,7 @@
 
 @media (max-width: 525px) {
   .home {
-    background:no-repeat center/cover url('../../assets/images/bg-mobile.jpg');
+    background: no-repeat center/cover url('../../assets/images/bg-mobile.jpg');
   }
 
   .home .btn-style {

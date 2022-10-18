@@ -22,7 +22,9 @@ function CartLink() {
           <BagIcon className="bag" fill="white" width="34px" />
         </div>
       </Link>
-      {!onHomePage && <CartPreview items={cart.items} totalPrice={cart.totalPrice} />}
+      {!onHomePage && cart.totalProducts > 0 && (
+        <CartPreview items={cart.items} totalPrice={cart.totalPrice} />
+      )}
     </div>
   );
 }

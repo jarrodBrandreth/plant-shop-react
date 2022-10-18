@@ -6,6 +6,7 @@ import ShopPage from './components/shopPage/ShopPage';
 import ProductPage from './components/productPage/ProductPage';
 import CartPage from './components/cartPage/CartPage';
 import CheckOutPage from './components/checkOutPage/CheckOutPage';
+import ErrorPage from './components/errorPage/ErrorPage';
 import './App.css';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/shop/:productId" element={<ProductPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckOutPage />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </GlobalProvider>

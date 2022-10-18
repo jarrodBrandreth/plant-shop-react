@@ -24,7 +24,9 @@ function ProductCard({ product }: ProductCardProps) {
       <h3 style={{ display: 'none' }}>{product.name}</h3>
       <Link to={`/shop/${product.id}`}>
         <div className="details">
-          <img src={product.image} alt={product.name} />
+          <div className={`image-wrapper ${product.quantity < 1 ? 'sold-out' : ''}`}>
+            <img src={product.image} alt={product.name} />
+          </div>
           <span className="name">{product.name}</span>
           <span className="price">{formatCurrency(product.price)}</span>
           <Rating

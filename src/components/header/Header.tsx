@@ -5,6 +5,7 @@ import './header.css';
 
 function Header() {
   const onHomePage = useLocation().pathname === '/';
+  const onCheckOut = useLocation().pathname === '/checkout';
 
   return (
     <header
@@ -17,7 +18,14 @@ function Header() {
     >
       <div className="title">
         <h1 className="store-name">The Plant Shop</h1>
-        <span className="location">Malmö | Sweden</span>
+        <span
+          className="location"
+          style={{
+            display: `${onCheckOut ? 'none' : ''}`,
+          }}
+        >
+          Malmö | Sweden
+        </span>
       </div>
       <NavBar />
     </header>
