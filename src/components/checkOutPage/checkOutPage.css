@@ -95,17 +95,10 @@
   background-color: #ffa500;
 }
 
-.form-btn-style.previous:hover {
-  background-color: #ff8c00;
-}
-
 .form-btn-style.proceed {
   background-color: #228b22;
 }
 
-.form-btn-style.proceed:hover {
-  background-color: #006400;
-}
 
 /* Order Summary styles */
 
@@ -175,7 +168,7 @@
 }
 
 .order-summary .items-container {
-  max-height: 180px;
+  max-height: 140px;
   border-radius: 4px;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -377,3 +370,14 @@ input[type='radio']:checked {
     transform: rotate(360deg);
   }
 }
+
+
+@media (hover: hover) {
+  .form-btn-style.previous:hover {
+    background-color: #ff8c00;
+  }
+
+  .form-btn-style.proceed:hover {
+    background-color: #006400;
+  }
+ }

@@ -72,10 +72,6 @@ h6 {
   font-weight: 600;
 }
 
-.btn-style:hover {
-  background-color: #3e3e3e;
-}
-
 .icon-text-link {
   font-size: 0.8rem;
   font-weight: 600;
@@ -114,3 +110,9 @@ button[disabled] {
   background-color: rgba(255, 255, 255, 0.4);
   z-index: 1;
 }
+
+@media (hover: hover) {
+  .btn-style:hover {
+    background-color: #3e3e3e;
+  }
+ }

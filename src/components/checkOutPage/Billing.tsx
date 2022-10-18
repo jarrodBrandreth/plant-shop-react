@@ -42,6 +42,16 @@ function Billing({ setIsValid }: BillingProps) {
     }
   };
 
+  const billingDisabledOptions = [
+    'name_on_card',
+    'address',
+    'city',
+    'state',
+    'postal_code',
+    'email',
+    'phone_number',
+  ];
+
   return (
     <section className="billing">
       <h3 className="banner">Billing</h3>
@@ -94,15 +104,6 @@ function Billing({ setIsValid }: BillingProps) {
         {Object.entries(billingForm).map((entry) => {
           const key = entry[0];
           const value = entry[1];
-          const billingDisabledOptions = [
-            'name_on_card',
-            'address',
-            'city',
-            'state',
-            'postal_code',
-            'email',
-            'phone_number',
-          ];
           return (
             <Fragment key={key}>
               <label className="highlight" htmlFor={key}>
