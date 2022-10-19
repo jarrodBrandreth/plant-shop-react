@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { ProductProps, CartProductProps, OrderProductProps } from '../types/Types';
 
 interface GlobalContextProps {
@@ -20,10 +20,11 @@ interface GlobalContextProps {
     removeItemFromCart: (id: number) => void;
   };
 }
+type GlobalProviderProps = { children: ReactNode };
 
 const GlobalContext = createContext<GlobalContextProps | undefined>(undefined);
 
-export function GlobalProvider({ children }: any) {
+export function GlobalProvider({ children }: GlobalProviderProps) {
   const [products, setProducts] = useState<Array<ProductProps>>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);

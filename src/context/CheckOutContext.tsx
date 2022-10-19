@@ -1,4 +1,12 @@
-import { createContext, useContext, useState, useEffect, Dispatch, SetStateAction } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+  ReactNode,
+} from 'react';
 import { useGlobalContext } from './GlobalContext';
 import { v4 as uuidv4 } from 'uuid';
 import {
@@ -23,10 +31,11 @@ interface CheckOutContextProps {
   billingShippingSame: boolean;
   placeOrder: () => void;
 }
+type CheckOutProviderProps = { children: ReactNode };
 
 const CheckOutContext = createContext<CheckOutContextProps | undefined>(undefined);
 
-export function CheckOutProvider({ children }: any) {
+export function CheckOutProvider({ children }: CheckOutProviderProps) {
   const { cart, updateProductQty } = useGlobalContext();
   const [order, setOrder] = useState<FinalOrderProps | null>(null);
   const [storePickUp, setStorePickUp] = useState(false);
