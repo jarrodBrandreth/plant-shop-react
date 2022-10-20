@@ -1,0 +1,8 @@
+.quantity-actions {
+  width: max-content;
+  display: flex;
+  align-items: center;
+}
+.quantity-actions > * {
+  margin: 0px 6px;
+}

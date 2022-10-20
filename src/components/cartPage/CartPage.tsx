@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useGlobalContext } from '../../context/GlobalContext';
-import CartPageItem from './CartPageItem';
+import CartPageItem from './cartPageItem/CartPageItem';
 import Recommendations from '../recommendations/Recommendations';
 import { ReactComponent as ArrowRight } from '../../assets/icons/arrow-forward-circle-outline.svg';
 import { ReactComponent as ArrowLeft } from '../../assets/icons/arrow-back-circle-outline.svg';
@@ -14,15 +14,19 @@ function CartPage() {
 
   if (cart.items.length < 1)
     return (
-      <section className="cart">
-        <div className="cart-heading">
-          <h2 className="cart-heading">Cart</h2>
-          <div className="empty-text">You cart is currently empty...</div>
-          <Link to="/shop" className=" icon-text-link">
-            <ArrowLeft width="18px" />
-            Back To Shop
-          </Link>
-        </div>
+      <main className="cart-page">
+        <section className="cart">
+          <header className="cart-header">
+            <h2>Cart</h2>
+          </header>
+          <div className="empty-text">
+            You cart is currently empty...
+            <Link to="/shop" className=" icon-text-link">
+              <ArrowLeft width="18px" />
+              Back To Shop
+            </Link>
+          </div>
+        </section>
         {likedItems.length > 0 && (
           <Recommendations
             excluded={cartItemsProducts}
@@ -31,36 +35,32 @@ function CartPage() {
             title="Consider adding some items you liked to your cart"
           />
         )}
-      </section>
+      </main>
     );
 
   return (
-    <div className="cart-wrapper">
+    <main className="cart-page">
       <section className="cart">
-        <div className="cart-heading">
+        <header className="cart-header">
           <h2>Cart</h2>
-          <div className="link-wrapper">
-            <Link className=" icon-text-link" to="/checkout">
-              Proceed To Checkout <ArrowRight width="18px" />
-            </Link>
-          </div>
-        </div>
+          <Link className=" icon-text-link" to="/checkout">
+            Proceed To Checkout <ArrowRight width="18px" />
+          </Link>
+        </header>
         <div className="cart-products">
           {cart.items.map((item) => (
             <CartPageItem key={item.product.id} item={item} />
           ))}
         </div>
-        <div className="cart-footer">
+        <footer className="cart-footer">
           <div className="total-cart">
             <span className="text">Total Cart:</span>
             <span>{formatCurrency(cart.totalPrice)}</span>
           </div>
-          <div className="link-wrapper">
-            <Link className="icon-text-link" to="/checkout">
-              Proceed To Checkout <ArrowRight width="18px" />
-            </Link>
-          </div>
-        </div>
+          <Link className="icon-text-link" to="/checkout">
+            Proceed To Checkout <ArrowRight width="18px" />
+          </Link>
+        </footer>
       </section>
       {likedItems.length > 0 && (
         <Recommendations
@@ -70,7 +70,7 @@ function CartPage() {
           title="Consider adding some items you liked to your cart"
         />
       )}
-    </div>
+    </main>
   );
 }
 
