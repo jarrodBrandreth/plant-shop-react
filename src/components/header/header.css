@@ -1,4 +1,4 @@
-.header {
+.site-header {
   position: sticky;
   top: 0;
   padding: 10px 20px 12px 20px;
@@ -7,24 +7,24 @@
   z-index: 20;
 }
 
-.header .title {
+.site-header .title {
   text-align: center;
   background-color: transparent;
 }
 
-.header .store-name {
+.site-header .store-name {
   font-size: 1.6rem;
   font-weight: 600;
   width: 100%;
 }
 
-.header .location {
+.site-header .location {
   font-size: 0.8rem;
   font-weight: 500;
 }
 
 @media (max-width: 420px) {
-  .header {
+  .site-header {
     padding-bottom: 36px;
   }
 }

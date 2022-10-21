@@ -11,33 +11,32 @@ interface SuccessProps {
 
 function Success({ setIsValid }: SuccessProps) {
   const { order } = useCheckOutContext();
-  const [showShipping, setShowShipping] = useState(false);
+  const [showShipping, setShowShipping] = useState(true);
 
   if (order) {
     return (
       <section className="success">
-        <h3 className="highlight">Thanks For Your Order!</h3>
+        <h3 className="heading">Thanks For Your Order!</h3>
         <div className="message-container">
-          <p className="highlight">A copy of your receipt will be sent to:</p>
+          <p className="field">A copy of your receipt will be sent to:</p>
           <p>{order.billing.email}</p>
         </div>
         <div className="message-container">
-          <p className="highlight">Order Number:</p>
+          <p className="field">Order Number:</p>
           <p>{order.order_number}</p>
         </div>
         <div className="message-container">
-          <p className="highlight">Price:</p>
+          <p className="field">Price:</p>
           <p>{formatCurrency(order.cost.total)}</p>
         </div>
-
         <div className="shipping-details">
           <div className="heading-wrapper">
-            <h4 className="highlight">Shipping Details</h4>
+            <h4 className="field">Shipping Details</h4>
             <button className="view" onClick={() => setShowShipping(!showShipping)}>
               {showShipping ? 'Show' : 'Hide'}
             </button>
           </div>
-          <div className={`two-column-grid ${showShipping ? 'open' : ''}`}>
+          <div className={`details-grid ${showShipping ? 'open' : ''}`}>
             {order.store_pick_up && (
               <>
                 <span className="key">Store Pick Up:</span>
@@ -46,19 +45,18 @@ function Success({ setIsValid }: SuccessProps) {
             )}
             {!order.store_pick_up &&
               order.shipping &&
-              Object.entries(order.shipping).map((entry, index) => {
+              Object.keys(order.shipping).map((key, index) => {
                 return (
                   <Fragment key={index}>
-                    <span className="key">{entry[0].replaceAll('_', ' ')}:</span>
-                    <span className="value">{entry[1]}</span>
+                    <span className="key">{key.replaceAll('_', ' ')}:</span>
+                    <span className="value">{order.shipping ? order.shipping[key] : null}</span>
                   </Fragment>
                 );
               })}
           </div>
         </div>
-
         <div className="success-items">
-          <h4 className="highlight">Items</h4>
+          <h4 className="field">Items</h4>
           <div className="items-container">
             {order.order_products.map((item) => {
               return (
@@ -80,7 +78,7 @@ function Success({ setIsValid }: SuccessProps) {
   } else {
     return (
       <section className="success">
-        <h3 className="highlight">Order</h3>
+        <h3 className="heading">Order</h3>
         <p className="message">An error occured, we're looking into it</p>
         <button
           onClick={() => {

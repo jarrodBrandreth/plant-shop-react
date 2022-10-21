@@ -9,7 +9,7 @@ function Header() {
 
   return (
     <header
-      className="header"
+      className="site-header"
       style={{
         boxShadow: `${onHomePage ? 'none' : ''}`,
         backgroundColor: `${onHomePage ? 'transparent' : ''}`,

@@ -24,8 +24,8 @@ function OrderSummary({ isValid, startForm, setStartForm }: OrderSummaryProps) {
       )}
       <div className={`order-summary-wrapper ${startForm ? 'started' : ''} ${show ? 'show' : ''}`}>
         <section className="order-summary">
-          <h3 className="">Order Summary</h3>
-          <h4 className="heading highlight">Items</h4>
+          <h3>Order Summary</h3>
+          <h4>Items</h4>
           <div className="items-container">
             {orderProducts.map((item) => {
               return (
@@ -37,18 +37,18 @@ function OrderSummary({ isValid, startForm, setStartForm }: OrderSummaryProps) {
               );
             })}
           </div>
-          <div className="price-breakdown two-column-grid">
-            <span className="highlight">Subtotal:</span>
+          <div className="price-breakdown">
+            <span className="bold">Subtotal:</span>
             <span>{formatCurrency(cost.subtotal)}</span>
-            <span className="highlight">Estimated Tax:</span>
+            <span className="bold">Estimated Tax:</span>
             <span>{formatCurrency(cost.tax)}</span>
-            <span className="highlight">Shipping:</span>
+            <span className="bold">Shipping:</span>
             <span>
               {!isValid.shipping && 'calculated later'}
               {isValid.shipping && storePickUp && 'pick up'}
               {isValid.shipping && !storePickUp && formatCurrency(cost.shipping)}
             </span>
-            <span className="highlight">Total:</span>
+            <span className="bold">Total:</span>
             <span>{isValid.shipping ? formatCurrency(cost.total) : 'calculated later'}</span>
           </div>
           {!startForm && (

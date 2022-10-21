@@ -1,5 +1,7 @@
-import React, { ChangeEvent, SyntheticEvent, SetStateAction, Dispatch, Fragment } from 'react';
+import React, { ChangeEvent, SyntheticEvent, SetStateAction, Dispatch } from 'react';
 import { useCheckOutContext } from '../../context/CheckOutContext';
+import { ReactComponent as ShippingIcon } from '../../assets/icons/bus-outline.svg';
+import { getInputType, getPattern } from '../../helperFunctions/helperFunctions';
 import { IsValidProps } from '../../types/Types';
 
 interface ShippingProps {
@@ -49,11 +51,14 @@ function Shipping({ setIsValid }: ShippingProps) {
 
   return (
     <section className="shipping">
-      <h3 className="banner">Shipping</h3>
-      <form className="two-column-grid" onSubmit={handleSubmit}>
-        <div className="radio-container">
-          <div className=" highlight">Pick Up In Store</div>
-          <div className="choices">
+      <header className="banner header">
+        <ShippingIcon width="26px" />
+        <h3>Shipping</h3>
+      </header>
+      <form className="shipping-form" onSubmit={handleSubmit}>
+        <div className="radio-container form-entry">
+          <div className="left">Pick Up In Store</div>
+          <div className="choices right">
             <div className="choice-yes">
               <input
                 type="radio"
@@ -80,25 +85,27 @@ function Shipping({ setIsValid }: ShippingProps) {
             </div>
           </div>
         </div>
-        {Object.entries(shippingForm).map((entry) => {
-          const key = entry[0];
-          const value = entry[1];
+        {Object.keys(shippingForm).map((key) => {
+          const regexResult = getPattern(key);
           return (
-            <Fragment key={key}>
-              <label className="highlight" htmlFor={key}>
+            <div className="form-entry" key={key}>
+              <label className="left" htmlFor={key}>
                 {key.replaceAll('_', ' ')}
               </label>
               <input
-                type="text"
+                className="right"
+                type={getInputType(key)}
                 name={key}
                 id={key}
                 placeholder={key.replaceAll('_', ' ')}
-                value={storePickUp ? '' : value}
+                value={shippingForm[key]}
+                pattern={regexResult?.pattern}
+                title={regexResult?.title}
                 disabled={storePickUp ? true : false}
                 required
                 onChange={handleChange}
               />
-            </Fragment>
+            </div>
           );
         })}
         <div className="button-container">
@@ -107,7 +114,7 @@ function Shipping({ setIsValid }: ShippingProps) {
           </button>
         </div>
       </form>
-      <div className="up-next banner foot">Up Next: Billing</div>
+      <footer className="banner footer">Up Next: Billing</footer>
     </section>
   );
 }

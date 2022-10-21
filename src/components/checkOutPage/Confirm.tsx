@@ -1,5 +1,6 @@
 import React, { Dispatch, Fragment, SetStateAction, useState } from 'react';
 import { useCheckOutContext } from '../../context/CheckOutContext';
+import { ReactComponent as ListIcon } from '../../assets/icons/list-outline.svg';
 import { ReactComponent as LeafIcon } from '../../assets/icons/leaf-sharp.svg';
 import { IsValidProps } from '../../types/Types';
 
@@ -12,6 +13,7 @@ function Confirm({ setIsValid }: ConfirmProps) {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const cardDisplay = (cardNumber: string): string => {
+    console.log(cardNumber);
     return (
       '...' +
       cardNumber
@@ -44,23 +46,24 @@ function Confirm({ setIsValid }: ConfirmProps) {
         </div>
       )}
       <section className="confirmation">
-        <h3 className="banner">Confirmation Details</h3>
+        <header className="banner header">
+          <ListIcon width="26px" />
+          <h3>Confirmation Details</h3>
+        </header>
         <p className="description">Please confirm your information before proceeding</p>
-        <div className="two-column-grid">
-          <div className="details-heading">
-            <h4 className="highlight">Shipping Details</h4>
-            <button
-              className="edit form-btn-style"
-              onClick={() => {
-                setIsValid((isValid) => ({
-                  ...isValid,
-                  shipping: false,
-                }));
-              }}
-            >
-              edit
-            </button>
-          </div>
+        <div className="details-grid">
+          <h4 className="title key">Shipping Details</h4>
+          <button
+            className="edit form-btn-style"
+            onClick={() => {
+              setIsValid((isValid) => ({
+                ...isValid,
+                shipping: false,
+              }));
+            }}
+          >
+            edit
+          </button>
           {storePickUp && (
             <>
               <span className="key">Store Pick Up:</span>
@@ -68,47 +71,45 @@ function Confirm({ setIsValid }: ConfirmProps) {
             </>
           )}
           {!storePickUp &&
-            Object.entries(shippingForm).map((entry, index) => {
+            Object.keys(shippingForm).map((key, index) => {
               return (
                 <Fragment key={index}>
-                  <span className="key">{entry[0].replaceAll('_', ' ')}:</span>
-                  <span className="value">{entry[1]}</span>
+                  <span className="key">{key.replaceAll('_', ' ')}:</span>
+                  <span className="value">{shippingForm[key]}</span>
                 </Fragment>
               );
             })}
-          <div className="details-heading">
-            <h4 className="highlight">Billing Details</h4>
-            <button
-              className="edit form-btn-style"
-              onClick={() => {
-                setIsValid((isValid) => ({
-                  ...isValid,
-                  billing: false,
-                }));
-              }}
-            >
-              edit
-            </button>
-          </div>
-          {Object.entries(billingForm).map((entry, index) => {
-            if (entry[0] === 'card_number') {
-              entry[1] = cardDisplay(entry[1]);
-            }
+        </div>
+        <div className="details-grid">
+          <h4 className="title key">Billing Details</h4>
+          <button
+            className="edit form-btn-style"
+            onClick={() => {
+              setIsValid((isValid) => ({
+                ...isValid,
+                billing: false,
+              }));
+            }}
+          >
+            edit
+          </button>
+          {Object.keys(billingForm).map((key, index) => {
             return (
               <Fragment key={index}>
-                <span className="key">{entry[0].replaceAll('_', ' ')}:</span>
-                <span className="value">{entry[1]}</span>
+                <span className="key">{key.replaceAll('_', ' ')}:</span>
+                <span className="value">
+                  {key === 'card_number' ? cardDisplay(billingForm[key]) : billingForm[key]}
+                </span>
               </Fragment>
             );
           })}
-
-          <div className="button-container confirm">
-            <button type="submit" className="form-btn-style proceed" onClick={() => confirmOrder()}>
-              Confirm Order
-            </button>
-          </div>
         </div>
-        <div className="banner foot">Up Next: Order Details</div>
+        <div className="button-container confirm">
+          <button type="submit" className="form-btn-style proceed" onClick={() => confirmOrder()}>
+            Confirm Order
+          </button>
+        </div>
+        <footer className="banner footer">Up Next: Order Details</footer>
       </section>
     </>
   );

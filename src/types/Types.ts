@@ -20,6 +20,7 @@ export interface CartProductProps {
 }
 
 export interface BillingFormProps {
+  [key: string]: string;
   name_on_card: string;
   address: string;
   city: string;
@@ -33,6 +34,7 @@ export interface BillingFormProps {
 }
 
 export interface ShippingFormProps {
+  [key: string]: string;
   first_name: string;
   last_name: string;
   address: string;

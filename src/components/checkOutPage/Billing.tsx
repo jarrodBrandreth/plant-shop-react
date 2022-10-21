@@ -1,5 +1,7 @@
-import React, { ChangeEvent, SyntheticEvent, SetStateAction, Dispatch, Fragment } from 'react';
+import React, { ChangeEvent, SyntheticEvent, SetStateAction, Dispatch } from 'react';
 import { useCheckOutContext } from '../../context/CheckOutContext';
+import { ReactComponent as CardIcon } from '../../assets/icons/card-outline.svg';
+import { getInputType, getPattern } from '../../helperFunctions/helperFunctions';
 import { IsValidProps } from '../../types/Types';
 
 interface BillingProps {
@@ -54,8 +56,11 @@ function Billing({ setIsValid }: BillingProps) {
 
   return (
     <section className="billing">
-      <h3 className="banner">Billing</h3>
-      <form className="two-column-grid" onSubmit={handleSubmit}>
+      <header className="banner header">
+        <CardIcon width="26px" />
+        <h3>Billing</h3>
+      </header>
+      <form className="billing-form" onSubmit={handleSubmit}>
         <div className="button-container top">
           <button
             type="button"
@@ -71,9 +76,9 @@ function Billing({ setIsValid }: BillingProps) {
           </button>
         </div>
         {!storePickUp && (
-          <div className="radio-container">
-            <div className="highlight">Billing same as shipping</div>
-            <div className="choices">
+          <div className="radio-container form-entry">
+            <div className="left">Billing same as shipping</div>
+            <div className="choices right">
               <div className="choice-yes">
                 <input
                   type="radio"
@@ -101,29 +106,29 @@ function Billing({ setIsValid }: BillingProps) {
             </div>
           </div>
         )}
-        {Object.entries(billingForm).map((entry) => {
-          const key = entry[0];
-          const value = entry[1];
+        {Object.keys(billingForm).map((key) => {
+          const regexResult = getPattern(key);
           return (
-            <Fragment key={key}>
-              <label className="highlight" htmlFor={key}>
+            <div className="form-entry" key={key}>
+              <label className="left" htmlFor={key}>
                 {key.replaceAll('_', ' ')}
               </label>
               <input
-                type={key === 'card_expiration' ? 'date' : 'text'}
+                className="right"
+                type={getInputType(key)}
                 name={key}
                 id={key}
                 placeholder={key.replaceAll('_', ' ')}
-                value={value}
+                value={billingForm[key]}
+                pattern={regexResult?.pattern}
+                title={regexResult?.title}
                 required
                 disabled={
                   billingShippingSame && billingDisabledOptions.includes(key) ? true : false
                 }
-                minLength={key === 'cvv' ? 3 : 1}
-                maxLength={key === 'cvv' ? 4 : 50}
                 onChange={handleChange}
               />
-            </Fragment>
+            </div>
           );
         })}
         <div className="button-container">
@@ -132,7 +137,7 @@ function Billing({ setIsValid }: BillingProps) {
           </button>
         </div>
       </form>
-      <div className="up-next banner foot">Up next: Confirmation</div>
+      <footer className="banner footer">Up next: Confirmation</footer>
     </section>
   );
 }
