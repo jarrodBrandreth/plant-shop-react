@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useGlobalContext } from '../../context/GlobalContext';
 import { ProductProps } from '../../types/Types';
 import ProductCard from '../productCard/ProductCard';
@@ -14,38 +14,35 @@ interface SortProductsArgs {
 
 function ShopPage() {
   const { products, productStatus } = useGlobalContext();
-  const [currentProducts, setCurrentProducts] = useState<Array<ProductProps>>([]);
   const [searchValue, setSearchValue] = useState('');
   const [sortByValue, setSortByValue] = useState<SortProductsArgs | null>(null);
 
-  useEffect(() => {
-    setCurrentProducts(() => {
-      let results = [...products].filter((product) =>
-        product.name.toLowerCase().includes(searchValue.toLowerCase()),
-      );
-      if (!sortByValue) {
-        return results;
-      } else {
-        results.sort((a, b) => {
-          let propA = a[sortByValue.property];
-          let propB = b[sortByValue.property];
-          if (typeof propA === 'string' && typeof propB === 'string') {
-            propA = propA.toLowerCase();
-            propB = propB.toLowerCase();
-          }
-          if (propA < propB) {
-            return -1;
-          }
-          if (propA > propB) {
-            return 1;
-          }
-          return 0;
-        });
-      }
-      if (sortByValue.decreasing) return results.reverse();
+  const currentProducts = (searchValue: string, sortByValue: SortProductsArgs | null) => {
+    let results = [...products].filter((product) =>
+      product.name.toLowerCase().includes(searchValue.toLowerCase()),
+    );
+    if (!sortByValue) {
       return results;
-    });
-  }, [searchValue, sortByValue, products]);
+    } else {
+      results.sort((a, b) => {
+        let propA = a[sortByValue.property];
+        let propB = b[sortByValue.property];
+        if (typeof propA === 'string' && typeof propB === 'string') {
+          propA = propA.toLowerCase();
+          propB = propB.toLowerCase();
+        }
+        if (propA < propB) {
+          return -1;
+        }
+        if (propA > propB) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+    if (sortByValue.decreasing) return results.reverse();
+    return results;
+  };
 
   return (
     <main className="shop page">
@@ -65,10 +62,13 @@ function ShopPage() {
         />
       </section>
       <section className="products">
-        {currentProducts.length < 1 && searchValue && <div>No search results...</div>}
-        {currentProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+        {currentProducts(searchValue, sortByValue).length < 1 ? (
+          <div>No search results...</div>
+        ) : (
+          currentProducts(searchValue, sortByValue).map((product) => {
+            return <ProductCard key={product.id} product={product} />;
+          })
+        )}
       </section>
       {productStatus.loading && (
         <div className="loading-screen">
