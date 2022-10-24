@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useGlobalContext } from '../../context/GlobalContext';
 import LikeButton from '../likeButton/LikeButton';
 import AddToCartButton from '../addToCartButton/AddToCartButton';
 import Rating from '../rating/Rating';
@@ -19,6 +20,8 @@ interface ProductCardProps {
 }
 
 function ProductCard({ product }: ProductCardProps) {
+  const { cart } = useGlobalContext();
+  const itemInCart = cart.items.find((item) => item.product.id === product.id);
   return (
     <div className="product-card">
       <h3 style={{ display: 'none' }}>{product.name}</h3>
@@ -52,13 +55,20 @@ function ProductCard({ product }: ProductCardProps) {
           />
         </div>
       </Link>
-      <AddToCartButton
-        Icon={BagAdd}
-        iconWidth="22px"
-        className="add-to-bag-btn"
-        text={null}
-        product={product}
-      />
+      <div className="add-to-bag-container">
+        <AddToCartButton
+          Icon={BagAdd}
+          iconWidth="22px"
+          className="add-to-bag-btn"
+          text={null}
+          product={product}
+        />
+        {itemInCart && (
+          <div className="product-in-bag">
+            {itemInCart.quantity} Item{itemInCart.quantity > 1 && 's'} in Bag
+          </div>
+        )}
+      </div>
       <LikeButton product={product} width="22px" />
     </div>
   );

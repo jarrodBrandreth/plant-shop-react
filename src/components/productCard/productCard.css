@@ -34,17 +34,33 @@
   padding: 4px 8px;
 }
 
+.product-card .add-to-bag-container {
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 .product-card .add-to-bag-btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  left: 6px;
-  top: 6px;
   padding: 10px;
   border-radius: 50%;
   background-color: #ffffff4d;
   border: none;
+  margin-bottom: 6px;
+}
+
+.product-card .product-in-bag {
+  margin:0 50px 0 4px;
+  padding: 2px 4px 2px 2px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 500;
 }
 
 .product-card .like-btn {
