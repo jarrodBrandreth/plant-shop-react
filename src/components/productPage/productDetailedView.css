@@ -1,6 +1,6 @@
 .product-detailed-view {
   width: fit-content;
-  margin: 40px auto;
+  margin: 0px auto 40px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -69,6 +69,22 @@
   font-weight: 600;
   font-size: 0.8rem;
 }
+
+.product-detailed-view .product-in-cart {
+  margin: 16px 0px 0px 0px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: rgb(226 226 226 / 64%);
+  padding: 12px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.product-detailed-view .product-in-cart span {
+  font-size: 0.8rem;
+}
+
 .product-detailed-view .like-btn {
   position: absolute;
   top: 12px;

@@ -1,4 +1,5 @@
 .product-page {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,4 +11,22 @@
   justify-content: center;
   align-items: center;
   margin: 20px;
+}
+
+.product-nav {
+  width: min(800px,100%);
+  margin: 20px auto 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+}
+
+.product-nav .shop-link {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.product-nav .shop-link.remove {
+  visibility: hidden;
 }

@@ -1,7 +1,9 @@
 import React from 'react';
+import { useGlobalContext } from '../../context/GlobalContext';
 import LikeButton from '../likeButton/LikeButton';
 import Rating from '../rating/Rating';
 import AddToCartButton from '../addToCartButton/AddToCartButton';
+import QuantityActions from '../cartPage/quantityActions/QuantityActions';
 import { ReactComponent as SunIcon } from '../../assets/icons/sunny-outline.svg';
 import { ReactComponent as SunIconFill } from '../../assets/icons/sunny-sharp.svg';
 import { ReactComponent as DropletIcon } from '../../assets/icons/water-outline.svg';
@@ -14,6 +16,9 @@ import { ProductAsProps } from '../../types/Types';
 import './productDetailedView.css';
 
 function ProductDetailedView({ product }: ProductAsProps) {
+  const { cart } = useGlobalContext();
+  const itemInCart = cart.items.find((item) => item.product.id === product.id);
+
   return (
     <div className="product-detailed-view">
       <div className={`image-wrapper ${product.quantity < 1 ? 'sold-out' : ''}`}>
@@ -92,13 +97,23 @@ function ProductDetailedView({ product }: ProductAsProps) {
           * All plants will be shipped with an appropriate pot for growing. Color may vary, pick up
           at our store location to get a pot of your choosing.
         </div>
-        <AddToCartButton
-          className="btn-style add-with-icon"
-          Icon={BagAdd}
-          iconWidth="22px"
-          product={product}
-          text="Add To Bag"
-        />
+
+        {itemInCart && (
+          <div className="product-in-cart">
+            <span>Product In Cart</span>
+            <QuantityActions item={itemInCart} />
+          </div>
+        )}
+
+        {!itemInCart && (
+          <AddToCartButton
+            className="btn-style add-with-icon"
+            Icon={BagAdd}
+            iconWidth="22px"
+            product={product}
+            text="Add To Bag"
+          />
+        )}
       </section>
     </div>
   );
