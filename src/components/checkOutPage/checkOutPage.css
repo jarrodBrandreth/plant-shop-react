@@ -31,7 +31,10 @@
 .checkout .form-entry {
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   align-items: center;
+
   margin: 14px 0px;
 }
 
@@ -45,6 +48,13 @@
 
 .checkout .form-entry .right {
   width: 50%;
+}
+
+.checkout .regex-pattern {
+  width: 50%;
+  padding: 6px;
+  font-size: 0.8rem;
+  color: rgb(96, 96, 96);
 }
 
 .checkout .button-container {

@@ -128,6 +128,7 @@ function Billing({ setIsValid }: BillingProps) {
                 }
                 onChange={handleChange}
               />
+              {regexResult && <span className="regex-pattern">*{regexResult.title}</span>}
             </div>
           );
         })}

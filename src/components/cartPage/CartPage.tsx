@@ -39,7 +39,7 @@ function CartPage() {
     );
 
   return (
-    <main className="cart-page">
+    <main className="cart-page page">
       <section className="cart">
         <header className="cart-header">
           <h2>Cart</h2>

@@ -31,7 +31,10 @@ export const getPattern = (str: string) => {
         title: 'accepts letters,numbers . and spaces',
       };
       break;
-    case 'city' || 'state':
+    case 'city':
+      regexResult = { pattern: '[a-zA-ZäöåÄÖÅ]{2,}', title: 'letters only' };
+      break;
+    case 'state':
       regexResult = { pattern: '[a-zA-ZäöåÄÖÅ]{2,}', title: 'letters only' };
       break;
     case 'postal_code':

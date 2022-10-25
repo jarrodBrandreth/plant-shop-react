@@ -33,7 +33,7 @@ function CheckOutPage() {
 
   return (
     <CheckOutProvider>
-      <main className="checkout">
+      <main className="checkout page">
         {!isValid.confirmed && (
           <OrderSummary isValid={isValid} startForm={startForm} setStartForm={setStartForm} />
         )}

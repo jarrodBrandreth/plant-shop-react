@@ -105,6 +105,7 @@ function Shipping({ setIsValid }: ShippingProps) {
                 required
                 onChange={handleChange}
               />
+              {regexResult && <span className="regex-pattern">*{regexResult.title}</span>}
             </div>
           );
         })}
