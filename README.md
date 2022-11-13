@@ -1,4 +1,4 @@
-project hosted at https;//plant-shop.onrender.com
+project hosted at https://plant-shop.onrender.com
 
 # Getting Started with Create React App
 
